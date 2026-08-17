@@ -1,0 +1,32 @@
+[Unit]
+Description=OpenQuant Trading Platform - Core Backend Engine
+After=network.target postgresql.service redis.service
+Wants=postgresql.service redis.service
+
+[Service]
+Type=simple
+User=openquant
+Group=openquant
+WorkingDirectory=/opt/openquant/backend
+EnvironmentFile=/etc/openquant/production.env
+ExecStart=/opt/openquant/backend/.venv/bin/uvicorn openquant.interfaces.api.app:create_app --factory --host 127.0.0.1 --port 8000 --workers 4 --loop uvloop --http httptools --log-level info
+Restart=always
+RestartSec=5s
+
+# Security Hardening & Sandboxing
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictRealtime=true
+RestrictNamespaces=true
+MemoryDenyWriteExecute=true
+
+# Resource Limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target

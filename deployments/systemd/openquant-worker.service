@@ -1,0 +1,27 @@
+[Unit]
+Description=OpenQuant Trading Platform - Background Stream & Worker Engine
+After=network.target openquant-backend.service
+Wants=openquant-backend.service
+
+[Service]
+Type=simple
+User=openquant
+Group=openquant
+WorkingDirectory=/opt/openquant/backend
+EnvironmentFile=/etc/openquant/production.env
+ExecStart=/opt/openquant/backend/.venv/bin/python -m openquant.infrastructure.worker
+Restart=always
+RestartSec=5s
+
+# Security Hardening & Sandboxing
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+# Resource Limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target

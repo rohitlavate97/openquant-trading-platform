@@ -1,0 +1,15 @@
+apiVersion: v2
+name: openquant
+description: Production Helm Chart for OpenQuant Algorithmic Trading Platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - algorithmic-trading
+  - quantitative-finance
+  - trading-platform
+  - risk-management
+  - oms
+maintainers:
+  - name: OpenQuant Engineering
+    email: engineering@openquant.io

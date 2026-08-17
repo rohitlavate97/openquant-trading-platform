@@ -5,7 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 21: Security Hardening & Load Testing
+## [Unreleased] - Milestone 22: Production Deployment
+
+### Added
+- **Multi-Stage Production Dockerfiles (`backend/Dockerfile.prod`, `frontend/Dockerfile.prod`, `frontend/nginx.prod.conf`)**:
+  - Backend runtime container with non-root system user (`openquant:openquant`), `uv` dependency caching, and Uvicorn multi-worker parallel processes.
+  - Frontend runtime container with Node 22 build to Alpine Nginx 1.27, SPA fallback, CSP/HSTS/X-Frame-Options security headers, and `/ws/` WebSockets proxying.
+- **Production Docker Compose Stack (`docker-compose.prod.yml`)**:
+  - PostgreSQL 16 Alpine with performance tuning, persistent data volume, and healthchecks.
+  - Redis 7.2 with AOF persistence, password authentication, and memory limits.
+  - Backend API engine, Frontend Nginx SPA, Prometheus v2.50 metrics collector, and Grafana 10.4 dashboard suite.
+- **Kubernetes Helm 3.x Production Chart (`deployments/helm/openquant/`)**:
+  - Full Helm chart templates: backend deployment, frontend deployment, ClusterIP services, ingress with TLS/cert-manager, HorizontalPodAutoscaler, ConfigMap, and Secrets.
+- **Linux Systemd Service Units (`deployments/systemd/`)**:
+  - `openquant-backend.service` and `openquant-worker.service` with kernel and filesystem sandboxing flags (`ProtectSystem=full`, `NoNewPrivileges=true`, `PrivateTmp=true`).
+- **Production Configuration & Self-Hosting Documentation (`.env.production.example`, `docs/`)**:
+  - Complete `.env.production.example` template with key generation guidelines.
+  - `docs/self-hosting-guide.md` (bare-metal, Docker Compose, and Kubernetes deployment).
+  - `docs/production-checklist.md` (10-point preflight verification checklist).
+  - `docs/disaster-recovery.md` (PostgreSQL backup cron, restore drill, and Fernet master secret recovery).
+
+## Milestone 21: Security Hardening & Load Testing
 
 ### Added
 - **Automated Security Penetration Diagnostics Suite (`src/openquant/application/services/security_audit_service.py`, `src/openquant/interfaces/api/v1/endpoints/security.py`)**:
