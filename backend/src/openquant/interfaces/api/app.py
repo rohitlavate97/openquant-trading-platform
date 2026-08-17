@@ -175,5 +175,8 @@ def create_app() -> FastAPI:
 
     # Mount API v1 routes
     app.include_router(api_v1_router, prefix=settings.API_V1_STR)
+    from openquant.interfaces.api.v1.endpoints.stream import router as root_stream_router
+    app.include_router(root_stream_router)
 
     return app
+

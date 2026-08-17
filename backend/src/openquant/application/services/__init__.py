@@ -6,6 +6,10 @@ from openquant.application.services.api_key_service import APIKeyService, api_ke
 from openquant.application.services.secrets_service import SecretsService, secrets_service
 from openquant.application.services.audit_service import AuditLogService, audit_log_service
 from openquant.application.services.broker_service import BrokerService, broker_service
+from openquant.application.services.streaming_service import (
+    StreamingBroadcasterService,
+    streaming_broadcaster,
+)
 
 __all__ = [
     "HealthService",
@@ -20,4 +24,6 @@ __all__ = [
     "audit_log_service",
     "BrokerService",
     "broker_service",
+    "StreamingBroadcasterService",
+    "streaming_broadcaster",
 ]

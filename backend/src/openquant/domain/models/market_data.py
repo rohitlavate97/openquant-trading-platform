@@ -44,6 +44,7 @@ class Instrument(BaseModel):
 class Tick(BaseModel):
     """Atomic market price update (L1 market data)."""
     symbol: str
+    exchange: str = "NSE"
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     last_price: Decimal
     last_quantity: Decimal = Decimal("0")
@@ -52,6 +53,7 @@ class Tick(BaseModel):
     ask_price: Decimal | None = None
     ask_quantity: Decimal | None = None
     volume: Decimal = Decimal("0")
+
 
     def is_stale(self, max_staleness_ms: int) -> bool:
         """Check if market tick age exceeds maximum staleness limit."""

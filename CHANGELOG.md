@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 04: Broker Adapter Interface & First Adapter
+## [Unreleased] - Milestone 05: Unified REST & WebSocket Layer
+
+### Added
+- **Multiplexed WebSocket Connection Manager (`src/openquant/interfaces/api/v1/websocket/connection_manager.py`)**:
+  - Thread-safe connection management and channel-based topic subscriptions for market data (`ticks:{symbol}`, `ticks:ALL`), orders (`orders:{account_id}`, `orders:ALL`), and telemetry (`telemetry:global`).
+- **WebSocket Streaming Endpoints (`/ws/v1/`)**:
+  - `/ws/v1/market-data`: Real-time L1 tick streaming with subscribe/unsubscribe action protocol and ping/pong heartbeats.
+  - `/ws/v1/orders`: Live order execution reports and status updates.
+  - `/ws/v1/telemetry`: Platform latency, risk halts, and kill switch status broadcasting.
+- **Streaming Broadcaster Application Service (`src/openquant/application/services/streaming_service.py`)**:
+  - Dispatches domain ticks and order execution reports to active WebSocket client pools.
+  - `/api/v1/stream/stats` REST endpoint exposing active connection and subscription counts.
+- **Frontend Real-Time Market Ticker (`frontend/src/features/market-data/LiveMarketTicker.tsx`)**:
+  - Resilient `useWebSocket` hook with exponential backoff auto-reconnect.
+  - Live streaming ticker cards with green/red price flash animations, bid/ask spread indicators, and dynamic symbol tracking.
+
+---
+
+## [0.4.0] - Milestone 04: Broker Adapter Interface & First Adapter
 
 ### Added
 - **Multi-Broker Hexagonal Port (`src/openquant/domain/ports/broker_adapter.py`)**:

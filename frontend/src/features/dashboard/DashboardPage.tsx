@@ -12,6 +12,7 @@ import {
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { PromotionGateOverview } from "../promotion-gate/PromotionGateOverview";
+import { LiveMarketTicker } from "../market-data/LiveMarketTicker";
 import { SystemInfo } from "@/types";
 
 interface DashboardPageProps {
@@ -25,6 +26,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 }) => {
   return (
     <div className="space-y-6">
+      {/* Real-time Streaming Market Ticker */}
+      <LiveMarketTicker />
+
       {/* Top Banner Alert if Kill Switch is Active */}
       {killSwitchActive && (
         <div className="p-4 bg-danger/20 border border-danger/60 rounded-xl flex items-center justify-between">

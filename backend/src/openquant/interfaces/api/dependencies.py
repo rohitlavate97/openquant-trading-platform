@@ -84,3 +84,21 @@ def require_role(*allowed_roles: UserRole) -> Callable:
         return user
 
     return _role_checker
+
+
+async def get_current_user_ws(websocket, token: str | None = None) -> User | None:
+    """Resolve authenticated user for WebSocket connection without raising HTTP exception."""
+    if not token:
+        return None
+    try:
+        payload = JWTHandler.decode_token(token)
+        user_id = payload.get("sub")
+        if not user_id:
+            return None
+        user = await user_repository.get_by_id(user_id)
+        if user and user.is_active:
+            return user
+        return None
+    except Exception:
+        return None
+
