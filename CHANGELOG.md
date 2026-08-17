@@ -5,7 +5,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 02: Authentication, RBAC & Secrets Management
+## [Unreleased] - Milestone 03: Database Foundation & Audit Logging
+
+### Added
+- **Async SQLAlchemy 2.x Schema & Models (`src/openquant/adapters/database/models.py`)**:
+  - `UserModel`, `APIKeyModel`, `BrokerCredentialModel` with user-scoped foreign keys and cascade rules.
+  - `OrderModel` with unique composite index on `(account_id, idempotency_key)` preventing order duplication.
+  - `PositionModel` with unique composite index on `(account_id, symbol)` for real-time reconciled position tracking.
+  - `StrategyModel` and `PromotionRecordModel` tracking strategy metadata and immutable promotion gate transitions.
+  - `AuditLogModel` append-only table indexed by `(event_type, timestamp)` and `(actor_id, timestamp)`.
+- **Alembic Database Migration Pipeline**:
+  - `alembic.ini`, async migration environment `env.py`, and initial migration `0001_initial_schema.py`.
+- **SQLAlchemy 2.x Async Repositories**:
+  - `SQLAlchemyUserRepository`, `SQLAlchemyAPIKeyRepository`, `SQLAlchemyCredentialVaultRepository`, `SQLAlchemyOrderRepository`, `SQLAlchemyPositionRepository`, `SQLAlchemyStrategyRepository`, `SQLAlchemyAuditLogRepository`.
+- **Audit Logging Application Service & API**:
+  - `AuditLogService` for structured event recording across system, risk, auth, and promotion boundaries.
+  - `/api/v1/audit-logs` endpoint with pagination and severity/actor/event_type filtering.
+- **Frontend Audit Trail Viewer**:
+  - `AuditLogViewer.tsx` component with severity badges, search bar, and structured JSON payload inspector modal.
+  - New "Audit Trail" navigation tab in platform layout.
+
+---
+
+## [0.2.0] - Milestone 02: Authentication, RBAC & Secrets Management
 
 ### Added
 - **Authenticated Secrets Vault (`src/openquant/adapters/secrets/vault.py`)**:

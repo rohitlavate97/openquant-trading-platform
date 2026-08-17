@@ -4,6 +4,7 @@ import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
 import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVault";
 import { APIKeyManagement } from "@/features/api-keys/APIKeyManagement";
+import { AuditLogViewer } from "@/features/audit/AuditLogViewer";
 import { PromotionGateOverview } from "@/features/promotion-gate/PromotionGateOverview";
 import { SystemInfo } from "@/types";
 
@@ -62,6 +63,8 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "audit-logs":
+        return <AuditLogViewer />;
       case "secrets":
         return <BrokerCredentialsVault />;
       case "api-keys":

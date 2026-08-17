@@ -1,11 +1,13 @@
 """In-memory repository implementations for User, API Key, and Secrets Vault."""
 
+from datetime import datetime, timezone
 from openquant.domain.models.auth import User, APIKey, BrokerCredentialVaultItem
 from openquant.domain.ports.user_repository import (
     IUserRepository,
     IAPIKeyRepository,
     ICredentialVaultRepository,
 )
+from openquant.domain.ports.repositories import IAuditLogRepository
 
 
 class InMemoryUserRepository(IUserRepository):
@@ -91,7 +93,66 @@ class InMemoryCredentialVaultRepository(ICredentialVaultRepository):
         self._vault.clear()
 
 
+class InMemoryAuditLogRepository(IAuditLogRepository):
+    """In-memory append-only Audit Log storage."""
+
+    def __init__(self) -> None:
+        self._logs: list[dict] = []
+
+    async def record_event(
+        self,
+        event_type: str,
+        actor_id: str,
+        entity_type: str,
+        entity_id: str,
+        action: str,
+        payload: dict,
+        severity: str = "INFO",
+        client_ip: str | None = None,
+        status: str = "SUCCESS",
+        reason: str | None = None,
+    ) -> str:
+        log_id = f"aud_{len(self._logs) + 1}_{event_type.lower()}"
+        entry = {
+            "log_id": log_id,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "event_type": event_type,
+            "severity": severity,
+            "actor_id": actor_id,
+            "entity_type": entity_type,
+            "entity_id": entity_id,
+            "action": action,
+            "payload": payload,
+            "client_ip": client_ip,
+            "status": status,
+            "reason": reason,
+        }
+        self._logs.append(entry)
+        return log_id
+
+    async def list_logs(
+        self,
+        limit: int = 50,
+        offset: int = 0,
+        event_type: str | None = None,
+        actor_id: str | None = None,
+        severity: str | None = None,
+    ) -> list[dict]:
+        results = list(reversed(self._logs))
+        if event_type:
+            results = [l for l in results if l["event_type"] == event_type]
+        if actor_id:
+            results = [l for l in results if l["actor_id"] == actor_id]
+        if severity:
+            results = [l for l in results if l["severity"] == severity]
+        return results[offset : offset + limit]
+
+    def clear(self) -> None:
+        self._logs.clear()
+
+
 # Global in-memory repository singletons
 user_repository = InMemoryUserRepository()
 api_key_repository = InMemoryAPIKeyRepository()
 credential_vault_repository = InMemoryCredentialVaultRepository()
+audit_log_repository = InMemoryAuditLogRepository()

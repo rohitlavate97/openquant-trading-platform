@@ -5,10 +5,18 @@ import {
   KeyRound,
   Key,
   Shield,
+  FileText,
   Settings,
 } from "lucide-react";
 
-export type ActiveTab = "overview" | "promotion" | "secrets" | "api-keys" | "risk" | "settings";
+export type ActiveTab =
+  | "overview"
+  | "promotion"
+  | "secrets"
+  | "api-keys"
+  | "audit-logs"
+  | "risk"
+  | "settings";
 
 interface SidebarProps {
   activeTab: ActiveTab;
@@ -21,6 +29,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
     { id: "promotion", name: "Promotion Gate", icon: <GitBranch className="w-4 h-4" /> },
     { id: "secrets", name: "Broker Secrets Vault", icon: <KeyRound className="w-4 h-4" /> },
     { id: "api-keys", name: "API Keys", icon: <Key className="w-4 h-4" /> },
+    { id: "audit-logs", name: "Audit Trail", icon: <FileText className="w-4 h-4" /> },
     { id: "risk", name: "Risk Controls", icon: <Shield className="w-4 h-4" /> },
     { id: "settings", name: "Settings", icon: <Settings className="w-4 h-4" /> },
   ];
@@ -54,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
       <div className="p-3 bg-surface-raised rounded-xl border border-border/80 text-xs space-y-2">
         <div className="text-[11px] font-semibold text-slate-300">Capital Safety Guarantees</div>
         <p className="text-[10px] text-slate-400 leading-normal">
-          Zero plaintext broker credential exposure. All live orders gated by pre-trade risk engine.
+          Immutable audit trail for all order dispatches and risk engine halts. Zero plaintext secrets.
         </p>
       </div>
     </aside>
