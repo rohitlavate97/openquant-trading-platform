@@ -12,7 +12,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **06** | **Market Data Ingestion & Staleness Engine** | 🟢 **Completed** | `InMemoryMarketDataFeed`, `StreamingCandleAggregator` (OHLCV 1m-1d), `SyntheticMarketFeed`, pre-trade 3000ms staleness guard (Rule 7), and `MarketDataManagementPage`. |
 | **07** | **Order Management System (OMS)** | 🟢 **Completed** | Strict idempotency engine (Rule 8), state machine lifecycle, weighted average entry price, realized/unrealized PnL, position reconciliation, and `OrderManagementPage`. |
 | **08** | **Risk Engine & Global Kill Switch** | 🟢 **Completed** | Synchronous pre-trade hard stops (daily loss %, max drawdown, position sizing, rate limit, self-trade), 1-click Global Kill Switch, and `RiskManagementPage`. |
-| **09** | **Strategy Execution Sandbox** | ⚪ Pending | Resource quotas (CPU/RAM/time), restricted execution environment, AST static analysis. |
+| **09** | **Strategy Execution Sandbox** | 🟢 **Completed** | Resource quotas (512MB RAM, 30s CPU limit, timeouts), AST static analysis, safe module allowlisting, print redirection, and `StrategySandboxPage`. |
 | **10** | **Strategy Engine (Python Source)** | ⚪ Pending | Python strategy runtime funneled through Sandbox → Backtest → Paper. |
 | **11** | **Backtesting Engine & Walk-Forward Validation**| ⚪ Pending | Historical event-driven simulation, out-of-sample walk-forward efficiency metrics. |
 | **12** | **Paper Trading Mode** | ⚪ Pending | Real-time simulated execution against broker sandbox feeds. |

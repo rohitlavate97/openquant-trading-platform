@@ -1,6 +1,7 @@
 import React from "react";
 import {
   LayoutDashboard,
+  Code,
   ShoppingBag,
   Activity,
   GitBranch,
@@ -14,6 +15,7 @@ import {
 
 export type ActiveTab =
   | "overview"
+  | "sandbox"
   | "orders"
   | "market-data"
   | "brokers"
@@ -32,6 +34,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "sandbox", name: "Strategy Sandbox", icon: <Code className="w-4 h-4" /> },
     { id: "orders", name: "Orders & OMS", icon: <ShoppingBag className="w-4 h-4" /> },
     { id: "market-data", name: "Market Data & Feed Health", icon: <Activity className="w-4 h-4" /> },
     { id: "brokers", name: "Broker Adapters", icon: <Server className="w-4 h-4" /> },
@@ -72,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
       <div className="p-3 bg-surface-raised rounded-xl border border-border/80 text-xs space-y-2">
         <div className="text-[11px] font-semibold text-slate-300">Capital Safety Guarantees</div>
         <p className="text-[10px] text-slate-400 leading-normal">
-          Non-Negotiable Rule 8: Strict idempotency prevents duplicate live order dispatches on retries.
+          Non-Negotiable Rule 6: Process-isolated Python sandbox with strict AST security linting and resource quotas.
         </p>
       </div>
     </aside>

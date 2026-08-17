@@ -5,7 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 08: Risk Engine & Global Kill Switch
+## [Unreleased] - Milestone 09: Strategy Execution Sandbox
+
+### Added
+- **Process-Isolated Strategy Sandbox (`src/openquant/adapters/sandbox/runner.py`)**:
+  - Isolated Python execution with CPU, RAM (512MB), and wall-clock timeout quotas.
+  - Safe import allowlisting hook supporting standard quant modules (`math`, `decimal`, `datetime`, `time`, `json`) while prohibiting unauthorized imports.
+  - Print log redirection for real-time strategy debugging and telemetry capture.
+- **AST Static Analysis & Security Validator (`src/openquant/adapters/sandbox/ast_validator.py`)**:
+  - Traverses syntax tree prior to execution and flags prohibited builtins (`eval`, `exec`, `open`, `__import__`, `exit`, etc.).
+  - Blocks dangerous system modules (`os`, `sys`, `subprocess`, `socket`, `ctypes`, `urllib`, `requests`, etc.) and reflection exploits (`__globals__`, `__subclasses__`).
+- **Strategy Sandbox Application Service (`src/openquant/application/services/sandbox_service.py`)**:
+  - Pre-built quant templates: Exponential Moving Average Momentum, RSI Mean Reversion, and Donchian Breakout.
+  - Compliance audit logging of sandbox validation failures and executions in `IAuditLogRepository`.
+- **Sandbox REST Endpoints (`src/openquant/interfaces/api/v1/endpoints/sandbox.py`)**:
+  - `POST /api/v1/sandbox/validate`, `POST /api/v1/sandbox/execute`, `GET /api/v1/sandbox/templates`.
+- **Frontend Strategy Sandbox UI (`frontend/src/features/sandbox/StrategySandboxPage.tsx`)**:
+  - Code Editor with template switcher, live AST security scanner, and execution output terminal with resource metrics.
+
+---
+
+## [0.8.0] - Milestone 08: Risk Engine & Global Kill Switch
 
 ### Added
 - **Synchronous Pre-Trade Risk Engine (`src/openquant/adapters/risk/risk_engine.py`)**:

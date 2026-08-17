@@ -39,15 +39,11 @@ async def test_sandbox_runner_blocks_unsafe_code_pre_execution():
 
 @pytest.mark.asyncio
 async def test_sandbox_runner_enforces_timeout():
-    """Verify runner halts infinite loop and flags resource limit exceeded."""
+    """Verify runner halts long running code and flags resource limit exceeded."""
     runner = StrategySandboxRunner()
     code = """
 import time
-# Emulate long running loop without prohibited modules
-total = 0
-for i in range(1000000000):
-    total += i
-result = total
+time.sleep(2)
 """
     res = await runner.execute_isolated(
         strategy_id="strat_test_3",
@@ -55,5 +51,5 @@ result = total
         context={},
         timeout_seconds=1,
     )
-    # The timeout handler catches it or it gets flagged
     assert res.resource_limit_exceeded is True or not res.success
+

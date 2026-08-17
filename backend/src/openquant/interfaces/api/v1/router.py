@@ -12,6 +12,7 @@ from openquant.interfaces.api.v1.endpoints.stream import router as stream_router
 from openquant.interfaces.api.v1.endpoints.market_data import router as market_data_router
 from openquant.interfaces.api.v1.endpoints.orders import router as orders_router
 from openquant.interfaces.api.v1.endpoints.risk import router as risk_router
+from openquant.interfaces.api.v1.endpoints.sandbox import router as sandbox_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -25,3 +26,4 @@ api_v1_router.include_router(stream_router)
 api_v1_router.include_router(market_data_router)
 api_v1_router.include_router(orders_router)
 api_v1_router.include_router(risk_router)
+api_v1_router.include_router(sandbox_router)
