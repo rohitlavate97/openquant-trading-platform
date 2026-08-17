@@ -20,6 +20,10 @@ from openquant.application.services.order_service import (
     PositionReconciliationReport,
     PositionReconciliationItem,
 )
+from openquant.application.services.risk_service import (
+    RiskService,
+    risk_service,
+)
 
 __all__ = [
     "HealthService",
@@ -42,4 +46,6 @@ __all__ = [
     "order_service",
     "PositionReconciliationReport",
     "PositionReconciliationItem",
+    "RiskService",
+    "risk_service",
 ]

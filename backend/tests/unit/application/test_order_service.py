@@ -26,6 +26,15 @@ from openquant.application.services.market_data_service import MarketDataService
 from openquant.application.services.audit_service import AuditLogService
 from openquant.adapters.repositories.in_memory_auth_repo import InMemoryAuditLogRepository
 from openquant.application.services.order_service import OrderManagementService
+from openquant.application.services.risk_service import risk_service
+
+
+@pytest.fixture(autouse=True)
+def reset_kill_switch_state():
+    risk_service.deactivate_kill_switch()
+    yield
+    risk_service.deactivate_kill_switch()
+
 
 
 @pytest.fixture

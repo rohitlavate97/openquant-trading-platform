@@ -9,6 +9,7 @@ import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVaul
 import { APIKeyManagement } from "@/features/api-keys/APIKeyManagement";
 import { AuditLogViewer } from "@/features/audit/AuditLogViewer";
 import { PromotionGateOverview } from "@/features/promotion-gate/PromotionGateOverview";
+import { RiskManagementPage } from "@/features/risk/RiskManagementPage";
 import { SystemInfo } from "@/types";
 
 export const App: React.FC = () => {
@@ -16,56 +17,53 @@ export const App: React.FC = () => {
   const [killSwitchActive, setKillSwitchActive] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<ActiveTab>("overview");
 
-  useEffect(() => {
-    // Fetch system info and initial risk configuration
+  const syncSystemAndRiskState = () => {
     fetch("/api/v1/system/info")
       .then((res) => (res.ok ? res.json() : null))
       .then((data: SystemInfo | null) => {
         if (data) {
           setSystemInfo(data);
-          setKillSwitchActive(data.risk_engine.kill_switch_active);
         }
       })
-      .catch(() => {
-        // Fallback default state if backend is offline or starting
-        setSystemInfo({
-          platform: "OpenQuant Algorithmic Trading Platform",
-          version: "0.1.0",
-          environment: "development",
-          debug: true,
-          risk_engine: {
-            kill_switch_active: false,
-            max_daily_loss_percent: 3.0,
-            max_drawdown_percent: 5.0,
-            max_position_size_percent: 10.0,
-            max_orders_per_second: 10,
-          },
-          sandbox: {
-            max_cpu_seconds: 30,
-            max_memory_mb: 512,
-            execution_timeout_seconds: 60,
-            strict_allowlist_mode: true,
-          },
-          adapters: [],
-        });
-      });
+      .catch(() => {});
+
+    fetch("/api/v1/risk/config")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((cfg) => {
+        if (cfg && cfg.kill_switch) {
+          setKillSwitchActive(cfg.kill_switch.is_active);
+        }
+      })
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    syncSystemAndRiskState();
   }, []);
 
-  const handleToggleKillSwitch = (activate: boolean, _flatten: boolean) => {
+  const handleToggleKillSwitch = async (activate: boolean, flatten: boolean) => {
     setKillSwitchActive(activate);
-    if (systemInfo) {
-      setSystemInfo({
-        ...systemInfo,
-        risk_engine: {
-          ...systemInfo.risk_engine,
-          kill_switch_active: activate,
-        },
-      });
-    }
+    try {
+      if (activate) {
+        await fetch("/api/v1/risk/kill-switch/activate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            level: "GLOBAL",
+            reason: "Top-bar Emergency Kill Switch Triggered",
+            flatten_positions: flatten,
+          }),
+        });
+      } else {
+        await fetch("/api/v1/risk/kill-switch/deactivate", { method: "POST" });
+      }
+    } catch {}
   };
 
   const renderContent = () => {
     switch (activeTab) {
+      case "risk":
+        return <RiskManagementPage />;
       case "orders":
         return <OrderManagementPage />;
       case "market-data":

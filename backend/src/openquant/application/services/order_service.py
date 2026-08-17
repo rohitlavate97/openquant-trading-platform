@@ -86,7 +86,11 @@ class OrderManagementService:
         # 2. Pre-Trade Staleness Hard Stop (Non-Negotiable Rule 7: 3000ms limit)
         await self._mkt_service.assert_not_stale(request.symbol)
 
-        # 3. Retrieve target Broker Adapter
+        # 3. Synchronous Pre-Trade Risk Checks (Non-Negotiable Rule 2: Hard-Stop Evaluation)
+        from openquant.application.services.risk_service import risk_service
+        await risk_service.evaluate_pre_trade(request)
+
+        # 4. Retrieve target Broker Adapter
         adapter = self._broker_reg.get(request.broker_id)
         if not adapter:
             raise BrokerAdapterNotFoundError(f"Broker adapter '{request.broker_id}' is not registered.")

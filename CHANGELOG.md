@@ -5,7 +5,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 07: Order Management System (OMS)
+## [Unreleased] - Milestone 08: Risk Engine & Global Kill Switch
+
+### Added
+- **Synchronous Pre-Trade Risk Engine (`src/openquant/adapters/risk/risk_engine.py`)**:
+  - Pre-trade blocking on every order with zero async bypass (Non-Negotiable Rule 2 & 4).
+  - 8 synchronous checks: Kill switch status, daily loss % (3.0%), peak drawdown % (5.0%), sliding-window rate limit (10 orders/sec), position size cap (10.0% of equity), self-trade crossing prevention, and max open orders per symbol (10).
+- **Risk Application Service (`src/openquant/application/services/risk_service.py`)**:
+  - 1-Click Emergency Kill Switch orchestration across GLOBAL, ACCOUNT, STRATEGY, and SYMBOL scopes.
+  - Automatic mass cancellation of active open orders upon emergency trigger.
+  - Real-time WebSocket broadcasting of risk rejections and kill switch status changes.
+- **Risk REST Endpoints (`src/openquant/interfaces/api/v1/endpoints/risk.py`)**:
+  - `GET /api/v1/risk/config`, `PUT /api/v1/risk/config`, `POST /api/v1/risk/kill-switch/activate`, `POST /api/v1/risk/kill-switch/deactivate`, `POST /api/v1/risk/evaluate-pre-trade`.
+- **Frontend Risk Management UI (`frontend/src/features/risk/RiskManagementPage.tsx`)**:
+  - Emergency Kill Switch banner and modal with level selectors and position flattening toggle.
+  - Interactive Pre-Trade Hard-Stop Parameters form with range sliders.
+  - Pre-Trade Risk Engine Dry-Run Simulator visualizer with individual rule pass/fail badges.
+
+---
+
+## [0.7.0] - Milestone 07: Order Management System (OMS)
 
 ### Added
 - **OMS Application Service (`src/openquant/application/services/order_service.py`)**:
