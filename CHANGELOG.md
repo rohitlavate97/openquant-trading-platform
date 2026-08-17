@@ -5,7 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 14: Additional Strategy Sources
+## [Unreleased] - Milestone 15: AI Advisory Suite
+
+### Added
+- **AI Advisory Domain Models & Ports (`src/openquant/domain/models/ai_advisory.py`, `src/openquant/domain/ports/ai_advisory_port.py`)**:
+  - `AICodeGenerationRequest`, `AICodeGenerationResult`, `AIReviewStatus` enforcing Non-Negotiable Rule 3.
+  - `AILogAnalysisReport`, `AIAnomalyItem`, `AIRiskAdviceReport`, `AIRiskRecommendation`.
+- **AI Advisory Engine Adapter (`src/openquant/adapters/ai/ai_advisory_engine.py`)**:
+  - Synthesizes `BaseStrategy` Python quant code verified with `ASTSecurityValidator`.
+  - Analyzes audit telemetry to detect pre-trade risk clusters, staleness alerts, and emergency halts.
+  - Generates explainable risk diagnostics and remediation recommendations.
+- **AI Advisory Application Service (`src/openquant/application/services/ai_advisory_service.py`)**:
+  - Coordinates generation, mandatory human review workflow (`approve_generated_code`), log analysis, and risk explanation.
+- **AI Advisory REST API (`src/openquant/interfaces/api/v1/endpoints/ai_advisory.py`)**:
+  - `POST /api/v1/ai/generate-strategy`, `POST /api/v1/ai/approve/{generation_id}`, `POST /api/v1/ai/analyze-logs`, `POST /api/v1/ai/explain-risk`.
+- **Frontend AI Advisory Suite UI (`frontend/src/features/ai-advisory/AIAdvisorySuitePage.tsx`)**:
+  - Quant Strategy Code Generator with AST Compliance Badge and Human Approval action.
+  - Log & Telemetry Anomaly Scanner with health score gauge and root-cause breakdown.
+  - Explainable Risk Advisor with natural language breach translation.
+
+---
+
+## [0.14.0] - Milestone 14: Additional Strategy Sources
 
 ### Added
 - **TradingView Alert Webhook Handler (`src/openquant/adapters/sources/tradingview_webhook.py`)**:

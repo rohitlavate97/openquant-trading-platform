@@ -90,6 +90,18 @@ from openquant.domain.models.strategy_sources import (
     TradingViewWebhookPayload,
     TradingViewWebhookResult,
 )
+from openquant.domain.models.ai_advisory import (
+    AIAnomalyItem,
+    AIAnomalySeverity,
+    AICodeGenerationRequest,
+    AICodeGenerationResult,
+    AILogAnalysisReport,
+    AILogAnalysisRequest,
+    AIReviewStatus,
+    AIRiskAdviceReport,
+    AIRiskAdviceRequest,
+    AIRiskRecommendation,
+)
 
 __all__ = [
     "Order",
@@ -161,4 +173,14 @@ __all__ = [
     "SheetsSignalType",
     "SheetsStrategyRow",
     "SheetsParseResult",
+    "AIReviewStatus",
+    "AICodeGenerationRequest",
+    "AICodeGenerationResult",
+    "AIAnomalySeverity",
+    "AIAnomalyItem",
+    "AILogAnalysisRequest",
+    "AILogAnalysisReport",
+    "AIRiskAdviceRequest",
+    "AIRiskRecommendation",
+    "AIRiskAdviceReport",
 ]

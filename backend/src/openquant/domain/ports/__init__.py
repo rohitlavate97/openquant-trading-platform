@@ -21,6 +21,7 @@ from openquant.domain.ports.strategy_sources_port import (
     IMT5BridgeAdapter,
     IStructuredSheetsParser,
 )
+from openquant.domain.ports.ai_advisory_port import IAIAdvisoryEngine
 
 __all__ = [
     "IUserRepository",
@@ -37,6 +38,7 @@ __all__ = [
     "ITradingViewWebhookHandler",
     "IMT5BridgeAdapter",
     "IStructuredSheetsParser",
+    "IAIAdvisoryEngine",
     "IBrokerAdapter",
     "IEventBus",
     "IMarketDataPort",

@@ -6,6 +6,7 @@ import {
   FileCode2,
   Scale,
   Layers,
+  Sparkles,
   Code,
   ShoppingBag,
   Activity,
@@ -22,6 +23,7 @@ export type ActiveTab =
   | "overview"
   | "strategies"
   | "sources"
+  | "ai-advisory"
   | "backtesting"
   | "paper-trading"
   | "reconciliation"
@@ -46,6 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "sources", name: "Strategy Sources", icon: <Layers className="w-4 h-4" /> },
+    { id: "ai-advisory", name: "AI Advisory Suite", icon: <Sparkles className="w-4 h-4" /> },
     { id: "backtesting", name: "Backtesting & WFV", icon: <TrendingUp className="w-4 h-4" /> },
     { id: "paper-trading", name: "Paper Trading Mode", icon: <FileCode2 className="w-4 h-4" /> },
     { id: "reconciliation", name: "State Reconciliation", icon: <Scale className="w-4 h-4" /> },
