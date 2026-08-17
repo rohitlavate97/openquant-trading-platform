@@ -11,11 +11,11 @@ from openquant.application.services.risk_service import risk_service
 
 
 @pytest.fixture(autouse=True)
-def clean_risk_test_state():
+async def clean_risk_test_state():
     user_repository.clear()
-    risk_service.deactivate_kill_switch()
+    await risk_service.deactivate_kill_switch()
     yield
-    risk_service.deactivate_kill_switch()
+    await risk_service.deactivate_kill_switch()
 
 
 @pytest.mark.asyncio

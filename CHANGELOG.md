@@ -5,7 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 10: Strategy Engine (Python Source)
+## [Unreleased] - Milestone 11: Backtesting Engine & Walk-Forward Validation
+
+### Added
+- **Event-Driven Backtesting Engine (`src/openquant/adapters/backtest/event_driven_engine.py`)**:
+  - Implements `IBacktestEngine` port for chronological market bar execution.
+  - Realistic Slippage Model (configurable basis points) and Commission deduction.
+  - Performance statistics: CAGR %, Sharpe Ratio, Sortino Ratio, Max Drawdown %, Profit Factor, Win Rate %, Average Win/Loss.
+  - Chronological trade log and marked-to-market equity curve generation.
+- **Walk-Forward Validation Engine**:
+  - Multi-window rolling In-Sample vs Out-of-Sample efficiency validation.
+  - Walk-Forward Efficiency (WFE) Ratio computation and Overfitting Risk score (`LOW`, `MEDIUM`, `HIGH`).
+- **Backtest Application Service (`src/openquant/application/services/backtest_service.py`)**:
+  - Synthetic historical candle generator with realistic random walk volatility.
+  - Non-negotiable Stage 2 Promotion Gate criteria evaluation (`DRAFT` → `BACKTEST`).
+- **Backtest REST API (`src/openquant/interfaces/api/v1/endpoints/backtest.py`)**:
+  - `POST /api/v1/backtest/run`, `POST /api/v1/backtest/walk-forward`, `GET /api/v1/backtest/results/{backtest_id}`, `POST /api/v1/backtest/{backtest_id}/promote`.
+- **Frontend Backtest Dashboard UI (`frontend/src/features/backtesting/BacktestDashboardPage.tsx`)**:
+  - Backtest configuration bar, interactive SVG marked-to-market equity curve, trade log table, multi-window WFE comparison table, and 1-click Stage 2 Promotion action.
+
+---
+
+## [0.10.0] - Milestone 10: Strategy Engine (Python Source)
 
 ### Added
 - **Strategy Execution Engine Runtime (`src/openquant/adapters/strategy/strategy_engine.py`)**:

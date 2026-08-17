@@ -53,6 +53,15 @@ from openquant.domain.models.strategy import (
     StrategySignal,
     StrategyState,
 )
+from openquant.domain.models.backtest import (
+    BacktestConfig,
+    BacktestPerformanceMetrics,
+    BacktestResult,
+    BacktestTrade,
+    EquityPoint,
+    WalkForwardResult,
+    WalkForwardWindow,
+)
 
 __all__ = [
     "Order",
@@ -95,4 +104,11 @@ __all__ = [
     "StrategyParameter",
     "ParameterType",
     "StrategySignal",
+    "BacktestConfig",
+    "BacktestTrade",
+    "EquityPoint",
+    "BacktestPerformanceMetrics",
+    "BacktestResult",
+    "WalkForwardWindow",
+    "WalkForwardResult",
 ]

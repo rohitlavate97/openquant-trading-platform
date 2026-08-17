@@ -14,7 +14,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **08** | **Risk Engine & Global Kill Switch** | 🟢 **Completed** | Synchronous pre-trade hard stops (daily loss %, max drawdown, position sizing, rate limit, self-trade), 1-click Global Kill Switch, and `RiskManagementPage`. |
 | **09** | **Strategy Execution Sandbox** | 🟢 **Completed** | Resource quotas (512MB RAM, 30s CPU limit, timeouts), AST static analysis, safe module allowlisting, print redirection, and `StrategySandboxPage`. |
 | **10** | **Strategy Engine (Python Source)** | 🟢 **Completed** | Python strategy runtime funneled through Sandbox → Backtest → Paper, lifecycle hooks (`on_start`, `on_bar`, `on_tick`, `on_stop`), and `StrategyManagementPage`. |
-| **11** | **Backtesting Engine & Walk-Forward Validation**| ⚪ Pending | Historical event-driven simulation, out-of-sample walk-forward efficiency metrics. |
+| **11** | **Backtesting Engine & Walk-Forward Validation**| 🟢 **Completed** | Historical event-driven simulation, slippage & commission models, equity curve, Sharpe, Sortino, max drawdown, and Out-of-Sample Walk-Forward efficiency validation. |
 | **12** | **Paper Trading Mode** | ⚪ Pending | Real-time simulated execution against broker sandbox feeds. |
 | **13** | **State Reconciliation Engine** | ⚪ Pending | Scheduled and pre-order mismatch detection against broker actuals; auto-halt on discrepancy. |
 | **14** | **Additional Strategy Sources** | ⚪ Pending | Signed TradingView webhooks (replay-protected), MT5 bridge, structured Sheets parser. |

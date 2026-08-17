@@ -2,6 +2,7 @@ import React from "react";
 import {
   LayoutDashboard,
   Cpu,
+  TrendingUp,
   Code,
   ShoppingBag,
   Activity,
@@ -17,6 +18,7 @@ import {
 export type ActiveTab =
   | "overview"
   | "strategies"
+  | "backtesting"
   | "sandbox"
   | "orders"
   | "market-data"
@@ -37,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
+    { id: "backtesting", name: "Backtesting & WFV", icon: <TrendingUp className="w-4 h-4" /> },
     { id: "sandbox", name: "Strategy Sandbox", icon: <Code className="w-4 h-4" /> },
     { id: "orders", name: "Orders & OMS", icon: <ShoppingBag className="w-4 h-4" /> },
     { id: "market-data", name: "Market Data & Feed Health", icon: <Activity className="w-4 h-4" /> },

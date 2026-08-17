@@ -33,6 +33,10 @@ from openquant.application.services.strategy_service import (
     StrategyService,
     strategy_service,
 )
+from openquant.application.services.backtest_service import (
+    BacktestService,
+    backtest_service,
+)
 
 __all__ = [
     "HealthService",
@@ -62,4 +66,6 @@ __all__ = [
     "STRATEGY_TEMPLATES",
     "StrategyService",
     "strategy_service",
+    "BacktestService",
+    "backtest_service",
 ]
