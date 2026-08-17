@@ -45,6 +45,10 @@ from openquant.application.services.reconciliation_service import (
     ReconciliationService,
     reconciliation_service,
 )
+from openquant.application.services.strategy_sources_service import (
+    StrategySourcesService,
+    strategy_sources_service,
+)
 
 __all__ = [
     "HealthService",
@@ -80,4 +84,6 @@ __all__ = [
     "paper_trading_service",
     "ReconciliationService",
     "reconciliation_service",
+    "StrategySourcesService",
+    "strategy_sources_service",
 ]

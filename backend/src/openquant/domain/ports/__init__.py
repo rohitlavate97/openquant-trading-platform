@@ -16,6 +16,11 @@ from openquant.domain.ports.market_data_port import IMarketDataPort, ICandleAggr
 from openquant.domain.ports.backtest_port import IBacktestEngine
 from openquant.domain.ports.paper_trading_port import IPaperTradingEngine
 from openquant.domain.ports.reconciliation_port import IReconciliationEngine
+from openquant.domain.ports.strategy_sources_port import (
+    ITradingViewWebhookHandler,
+    IMT5BridgeAdapter,
+    IStructuredSheetsParser,
+)
 
 __all__ = [
     "IUserRepository",
@@ -29,6 +34,9 @@ __all__ = [
     "IBacktestEngine",
     "IPaperTradingEngine",
     "IReconciliationEngine",
+    "ITradingViewWebhookHandler",
+    "IMT5BridgeAdapter",
+    "IStructuredSheetsParser",
     "IBrokerAdapter",
     "IEventBus",
     "IMarketDataPort",

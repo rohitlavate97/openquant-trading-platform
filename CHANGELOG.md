@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 13: State Reconciliation Engine
+## [Unreleased] - Milestone 14: Additional Strategy Sources
+
+### Added
+- **TradingView Alert Webhook Handler (`src/openquant/adapters/sources/tradingview_webhook.py`)**:
+  - HMAC-SHA256 signature verification over canonical payload or HTTP header.
+  - Replay attack defense with memory-cached nonces and $\le 60\text{s}$ TTL clock skew checks.
+  - Direct routing into pre-trade risk evaluation (Rules 2, 4, 7, 8) before OMS execution.
+- **MetaTrader 5 ZeroMQ Socket Bridge Adapter (`src/openquant/adapters/sources/mt5_bridge.py`)**:
+  - High-throughput ZeroMQ IPC socket adapter for EA command dispatch, tick streaming, and heartbeat monitoring.
+- **Structured Google Sheets / CSV Parser (`src/openquant/adapters/sources/sheets_parser.py`)**:
+  - Typed row parsing with validation diagnostics and batch OMS order execution.
+- **Strategy Sources REST API (`src/openquant/interfaces/api/v1/endpoints/strategy_sources.py`)**:
+  - `POST /api/v1/sources/tradingview/webhook`, `GET /api/v1/sources/mt5/status`, `POST /api/v1/sources/mt5/command`, `POST /api/v1/sources/sheets/parse`, `POST /api/v1/sources/sheets/execute`.
+- **Frontend Strategy Sources UI (`frontend/src/features/sources/StrategySourcesPage.tsx`)**:
+  - Webhook configurator & test alert dispatcher, MT5 telemetry status monitor, and CSV syntax validation table.
+
+---
+
+## [0.13.0] - Milestone 13: State Reconciliation Engine
 
 ### Added
 - **State Reconciliation Engine (`src/openquant/adapters/reconciliation/state_reconciliation_engine.py`)**:

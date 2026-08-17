@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
 import { StrategyManagementPage } from "@/features/strategies/StrategyManagementPage";
+import { StrategySourcesPage } from "@/features/sources/StrategySourcesPage";
 import { BacktestDashboardPage } from "@/features/backtesting/BacktestDashboardPage";
 import { PaperTradingPage } from "@/features/paper-trading/PaperTradingPage";
 import { StateReconciliationPage } from "@/features/reconciliation/StateReconciliationPage";
@@ -69,6 +70,8 @@ export const App: React.FC = () => {
     switch (activeTab) {
       case "strategies":
         return <StrategyManagementPage />;
+      case "sources":
+        return <StrategySourcesPage />;
       case "backtesting":
         return <BacktestDashboardPage />;
       case "paper-trading":
