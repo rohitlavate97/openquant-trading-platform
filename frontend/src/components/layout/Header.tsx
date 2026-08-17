@@ -1,7 +1,8 @@
 import React from "react";
-import { Activity, ShieldCheck, Cpu } from "lucide-react";
+import { Activity, ShieldCheck, Cpu, User as UserIcon } from "lucide-react";
 import { KillSwitch } from "../KillSwitch";
 import { Badge } from "../ui/Badge";
+import { useAuthStore } from "@/lib/authStore";
 
 interface HeaderProps {
   killSwitchActive: boolean;
@@ -12,6 +13,8 @@ export const Header: React.FC<HeaderProps> = ({
   killSwitchActive,
   onToggleKillSwitch,
 }) => {
+  const { user } = useAuthStore();
+
   return (
     <header className="h-16 border-b border-border bg-surface/80 backdrop-blur-md sticky top-0 z-40 px-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -21,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <h1 className="text-sm font-bold text-white leading-tight">OpenQuant</h1>
-            <p className="text-[10px] text-slate-400 font-mono">v0.1.0 • Core Platform</p>
+            <p className="text-[10px] text-slate-400 font-mono">v0.1.0 • Enterprise Core</p>
           </div>
         </div>
 
@@ -50,11 +53,26 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Global Kill Switch - Top Level Prominence */}
+        {/* Global Kill Switch */}
         <KillSwitch
           isActive={killSwitchActive}
           onToggle={onToggleKillSwitch}
         />
+
+        {/* User Profile / Role Badge */}
+        {user && (
+          <div className="flex items-center gap-2 pl-2 border-l border-border/60">
+            <div className="w-7 h-7 rounded-full bg-surface-raised border border-border flex items-center justify-center text-slate-300">
+              <UserIcon className="w-3.5 h-3.5" />
+            </div>
+            <div className="hidden md:block text-left">
+              <div className="text-xs font-semibold text-white leading-none">{user.full_name}</div>
+              <Badge variant="default" className="text-[9px] font-mono mt-0.5 px-1 py-0 uppercase">
+                {user.role}
+              </Badge>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

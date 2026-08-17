@@ -30,6 +30,14 @@ from openquant.domain.models.market_data import (
     InstrumentType,
     Tick,
 )
+from openquant.domain.models.auth import (
+    APIKey,
+    BrokerCredentialVaultItem,
+    Permission,
+    ROLE_PERMISSIONS_MAP,
+    User,
+    UserRole,
+)
 
 __all__ = [
     "Order",
@@ -55,4 +63,10 @@ __all__ = [
     "Instrument",
     "InstrumentType",
     "Tick",
+    "User",
+    "UserRole",
+    "Permission",
+    "ROLE_PERMISSIONS_MAP",
+    "APIKey",
+    "BrokerCredentialVaultItem",
 ]

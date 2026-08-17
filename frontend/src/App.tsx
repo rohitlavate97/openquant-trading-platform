@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
+import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVault";
+import { APIKeyManagement } from "@/features/api-keys/APIKeyManagement";
+import { PromotionGateOverview } from "@/features/promotion-gate/PromotionGateOverview";
 import { SystemInfo } from "@/types";
 
 export const App: React.FC = () => {
   const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
   const [killSwitchActive, setKillSwitchActive] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<ActiveTab>("overview");
 
   useEffect(() => {
     // Fetch system info and initial risk configuration
@@ -18,7 +23,7 @@ export const App: React.FC = () => {
         }
       })
       .catch(() => {
-        // Fallback default state if backend is still starting
+        // Fallback default state if backend is offline or starting
         setSystemInfo({
           platform: "OpenQuant Algorithmic Trading Platform",
           version: "0.1.0",
@@ -55,15 +60,38 @@ export const App: React.FC = () => {
     }
   };
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "secrets":
+        return <BrokerCredentialsVault />;
+      case "api-keys":
+        return <APIKeyManagement />;
+      case "promotion":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-lg font-bold text-white">Strategy Promotion Lifecycle</h2>
+            <PromotionGateOverview currentActiveStage="DRAFT" />
+          </div>
+        );
+      case "overview":
+      default:
+        return (
+          <DashboardPage
+            systemInfo={systemInfo}
+            killSwitchActive={killSwitchActive}
+          />
+        );
+    }
+  };
+
   return (
     <Layout
       killSwitchActive={killSwitchActive}
       onToggleKillSwitch={handleToggleKillSwitch}
+      activeTab={activeTab}
+      onSelectTab={setActiveTab}
     >
-      <DashboardPage
-        systemInfo={systemInfo}
-        killSwitchActive={killSwitchActive}
-      />
+      {renderContent()}
     </Layout>
   );
 };

@@ -5,7 +5,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 01: Project Setup & Hexagonal Boundaries
+## [Unreleased] - Milestone 02: Authentication, RBAC & Secrets Management
+
+### Added
+- **Authenticated Secrets Vault (`src/openquant/adapters/secrets/vault.py`)**:
+  - `FernetSecretsVault` implementing `ISecretsManager` using authenticated encryption (AES-128-CBC + HMAC-SHA256) with PBKDF2-HMAC-SHA256 key derivation.
+  - Zero plaintext leakage guarantee: secrets are decrypted strictly in-memory by authorized broker adapters and always masked (`••••••••1234`) in logs and API responses.
+- **Multi-Tenant User Auth & Password Security**:
+  - Direct `bcrypt` password hashing with auto-generated random salt.
+  - JWT token generation & verification (`access` 60m, `refresh` 7d).
+- **Role-Based Access Control (RBAC)**:
+  - 5 Hierarchical roles (`SUPER_ADMIN`, `ADMIN`, `QUANT_DEVELOPER`, `TRADER`, `VIEWER`).
+  - 8 Granular permissions (`SYSTEM_ADMIN`, `KILL_SWITCH_TRIGGER`, `STRATEGY_CREATE`, `STRATEGY_APPROVE`, `LIVE_TRADING_ENABLE`, `BROKER_MANAGE`, `ORDER_MANAGE`, `READ_ONLY`).
+  - FastAPI dependency factories `require_permissions` and `require_role`.
+- **Programmatic API Keys**:
+  - Cryptographic API key generation (`oq_live_...`), SHA-256 storage, and `X-API-Key` request header authentication.
+- **REST Endpoints**:
+  - `/api/v1/auth/register`, `/api/v1/auth/login`, `/api/v1/auth/refresh`, `/api/v1/auth/me`.
+  - `/api/v1/api-keys` (create, list, revoke).
+  - `/api/v1/secrets/broker-credentials` (store, list masked, revoke).
+- **Frontend Security UI**:
+  - Zustand auth store with permission checks.
+  - `BrokerCredentialsVault` interface with masked key views and encrypted credential management.
+  - `APIKeyManagement` interface with 1-click copy for newly generated keys.
+
+---
+
+## [0.1.0] - Milestone 01: Project Setup & Hexagonal Boundaries
 
 ### Added
 - **Hexagonal Architecture Foundation**:

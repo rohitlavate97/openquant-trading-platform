@@ -12,6 +12,12 @@ from openquant.domain.ports.repositories import (
     IPositionRepository,
     IStrategyRepository,
 )
+from openquant.domain.ports.secrets_manager import ISecretsManager
+from openquant.domain.ports.user_repository import (
+    IAPIKeyRepository,
+    ICredentialVaultRepository,
+    IUserRepository,
+)
 from openquant.domain.ports.event_bus import IEventBus
 
 __all__ = [
@@ -23,5 +29,9 @@ __all__ = [
     "IOrderRepository",
     "IPositionRepository",
     "IStrategyRepository",
+    "ISecretsManager",
+    "IUserRepository",
+    "IAPIKeyRepository",
+    "ICredentialVaultRepository",
     "IEventBus",
 ]

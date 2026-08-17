@@ -4,8 +4,8 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 
 | Milestone | Title | Status | Scope / Core Deliverables |
 |:---:|---|:---:|---|
-| **01** | **Project Setup & Hexagonal Boundaries** | 🟢 **In Progress** | Repository scaffolding, Docker, CI, clean architecture ports & adapters skeleton, structural boundary tests, Sandbox AST security validator, and initial React dashboard with Kill Switch. |
-| **02** | **Authentication, RBAC & Secrets Management** | ⚪ Pending | JWT auth, OAuth2, multi-tenant RBAC, encrypted broker credential vault. |
+| **01** | **Project Setup & Hexagonal Boundaries** | 🟢 **Completed** | Repository scaffolding, Docker, CI, clean architecture ports & adapters skeleton, structural boundary tests, Sandbox AST security validator, and initial React dashboard with Kill Switch. |
+| **02** | **Authentication, RBAC & Secrets Management** | 🟢 **Completed** | JWT authentication, bcrypt password hashing, multi-tenant RBAC permissions, encrypted secrets vault (AES/Fernet PBKDF2), programmatic API keys, and Frontend Vault UI. |
 | **03** | **Database Foundation & Audit Logging** | ⚪ Pending | Async SQLAlchemy ORM, Alembic migrations, immutable audit log tables. |
 | **04** | **Broker Adapter Interface & First Adapter** | ⚪ Pending | Abstract adapter interface, sandbox testing harness, Zerodha/Paper adapter certification. |
 | **05** | **Unified REST & WebSocket Layer** | ⚪ Pending | Standardized REST API & WebSocket streams over the adapter layer. |

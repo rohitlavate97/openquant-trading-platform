@@ -18,6 +18,10 @@ from openquant.domain.exceptions import (
     IdempotencyConflictError,
     PromotionGateViolationError,
     StaleMarketDataError,
+    AuthenticationError,
+    PermissionDeniedError,
+    UserAlreadyExistsError,
+    SecretsDecryptionError,
     OpenQuantDomainError,
 )
 from openquant.interfaces.api.v1.router import api_v1_router
@@ -112,6 +116,49 @@ def create_app() -> FastAPI:
                 "error": "BROKER_UNCERTIFIED",
                 "message": exc.message,
                 "details": exc.details,
+            },
+        )
+
+    @app.exception_handler(AuthenticationError)
+    async def auth_exception_handler(request: Request, exc: AuthenticationError) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={
+                "error": "AUTHENTICATION_FAILED",
+                "message": exc.message,
+                "details": exc.details,
+            },
+        )
+
+    @app.exception_handler(PermissionDeniedError)
+    async def permission_denied_exception_handler(request: Request, exc: PermissionDeniedError) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={
+                "error": "PERMISSION_DENIED",
+                "message": exc.message,
+                "details": exc.details,
+            },
+        )
+
+    @app.exception_handler(UserAlreadyExistsError)
+    async def user_exists_exception_handler(request: Request, exc: UserAlreadyExistsError) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_409_CONFLICT,
+            content={
+                "error": "USER_ALREADY_EXISTS",
+                "message": exc.message,
+                "details": exc.details,
+            },
+        )
+
+    @app.exception_handler(SecretsDecryptionError)
+    async def secrets_decryption_exception_handler(request: Request, exc: SecretsDecryptionError) -> JSONResponse:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "error": "SECRETS_DECRYPTION_FAILED",
+                "message": "Failed to decrypt stored credentials.",
             },
         )
 

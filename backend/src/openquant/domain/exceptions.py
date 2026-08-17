@@ -44,3 +44,31 @@ class SandboxSecurityViolationError(OpenQuantDomainError):
 
 class SandboxResourceExceededError(OpenQuantDomainError):
     """Raised when a strategy exceeds its allocated CPU, memory, or wall-clock time budget."""
+
+
+# ------------------------------------------------------------------------------
+# Authentication, RBAC & Secrets Management Domain Exceptions
+# ------------------------------------------------------------------------------
+
+class AuthenticationError(OpenQuantDomainError):
+    """Raised when user credentials or token verification fails."""
+
+
+class PermissionDeniedError(OpenQuantDomainError):
+    """Raised when an authenticated actor lacks required RBAC permissions."""
+
+
+class InvalidTokenError(AuthenticationError):
+    """Raised when a JWT token is expired, malformed, or has an invalid signature."""
+
+
+class UserAlreadyExistsError(OpenQuantDomainError):
+    """Raised when attempting to register a user with an already registered email."""
+
+
+class SecretsDecryptionError(OpenQuantDomainError):
+    """Raised when ciphertext cannot be decrypted due to key mismatch or corrupted payload."""
+
+
+class APIKeyRevokedError(AuthenticationError):
+    """Raised when an API key has been revoked or expired."""
