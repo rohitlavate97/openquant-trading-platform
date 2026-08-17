@@ -29,6 +29,10 @@ from openquant.application.services.sandbox_service import (
     sandbox_service,
     STRATEGY_TEMPLATES,
 )
+from openquant.application.services.strategy_service import (
+    StrategyService,
+    strategy_service,
+)
 
 __all__ = [
     "HealthService",
@@ -56,4 +60,6 @@ __all__ = [
     "StrategySandboxService",
     "sandbox_service",
     "STRATEGY_TEMPLATES",
+    "StrategyService",
+    "strategy_service",
 ]

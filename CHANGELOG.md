@@ -5,7 +5,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 09: Strategy Execution Sandbox
+## [Unreleased] - Milestone 10: Strategy Engine (Python Source)
+
+### Added
+- **Strategy Execution Engine Runtime (`src/openquant/adapters/strategy/strategy_engine.py`)**:
+  - Implements `IStrategyEngine` coordinating Python strategy instance registration, compilation, and isolated event dispatching.
+  - Event hooks: `on_start(context)`, `on_tick(tick, context)`, `on_bar(candle, context)`, `on_order_event(report, context)`, `on_stop(context)`.
+- **Strategy Base Framework & Standard Algorithms (`src/openquant/strategies/`)**:
+  - `BaseStrategy` and `StrategyContext` with `buy()`, `sell()`, and `emit_signal()` generating valid `idempotency_key` values.
+  - Standard builtin strategies: `EMAMomentumStrategy` (moving average crossover) and `RSIMeanReversionStrategy` (oversold/overbought mean reversion).
+- **Strategy Application Service (`src/openquant/application/services/strategy_service.py`)**:
+  - Full CRUD lifecycle with mandatory pre-execution AST static analysis security validation.
+  - Structured immutable compliance logging via `IAuditLogRepository`.
+- **Strategy REST Endpoints (`src/openquant/interfaces/api/v1/endpoints/strategies.py`)**:
+  - `POST /api/v1/strategies`, `GET /api/v1/strategies`, `GET /api/v1/strategies/{strategy_id}`, `PUT /api/v1/strategies/{strategy_id}`, `POST /api/v1/strategies/{strategy_id}/start`, `POST /api/v1/strategies/{strategy_id}/stop`, `POST /api/v1/strategies/{strategy_id}/pause`, `GET /api/v1/strategies/{strategy_id}/logs`.
+- **Frontend Strategy Engine UI (`frontend/src/features/strategies/StrategyManagementPage.tsx`)**:
+  - Strategy Catalog, state badges (`INITIALIZED`, `RUNNING`, `PAUSED`, `STOPPED`, `ERROR`), 1-click execution controls, PnL & Win Rate metrics, Python source viewer, real-time diagnostic event stream, and Deploy Strategy modal.
+
+---
+
+## [0.9.0] - Milestone 09: Strategy Execution Sandbox
 
 ### Added
 - **Process-Isolated Strategy Sandbox (`src/openquant/adapters/sandbox/runner.py`)**:

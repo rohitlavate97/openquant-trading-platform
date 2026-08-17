@@ -9,6 +9,7 @@ from openquant.domain.ports.repositories import (
 )
 from openquant.domain.ports.secrets_manager import ISecretsManager
 from openquant.domain.ports.strategy_sandbox import IStrategySandbox
+from openquant.domain.ports.strategy_engine_port import IStrategyEngine
 from openquant.domain.ports.broker_adapter import IBrokerAdapter
 from openquant.domain.ports.event_bus import IEventBus
 from openquant.domain.ports.market_data_port import IMarketDataPort, ICandleAggregatorPort
@@ -21,6 +22,7 @@ __all__ = [
     "IAuditLogRepository",
     "ISecretsManager",
     "IStrategySandbox",
+    "IStrategyEngine",
     "IBrokerAdapter",
     "IEventBus",
     "IMarketDataPort",

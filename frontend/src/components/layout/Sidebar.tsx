@@ -1,6 +1,7 @@
 import React from "react";
 import {
   LayoutDashboard,
+  Cpu,
   Code,
   ShoppingBag,
   Activity,
@@ -15,6 +16,7 @@ import {
 
 export type ActiveTab =
   | "overview"
+  | "strategies"
   | "sandbox"
   | "orders"
   | "market-data"
@@ -34,6 +36,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "sandbox", name: "Strategy Sandbox", icon: <Code className="w-4 h-4" /> },
     { id: "orders", name: "Orders & OMS", icon: <ShoppingBag className="w-4 h-4" /> },
     { id: "market-data", name: "Market Data & Feed Health", icon: <Activity className="w-4 h-4" /> },
@@ -75,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
       <div className="p-3 bg-surface-raised rounded-xl border border-border/80 text-xs space-y-2">
         <div className="text-[11px] font-semibold text-slate-300">Capital Safety Guarantees</div>
         <p className="text-[10px] text-slate-400 leading-normal">
-          Non-Negotiable Rule 6: Process-isolated Python sandbox with strict AST security linting and resource quotas.
+          Non-Negotiable Rule 1: Sequential Promotion Gate progression (Draft → Backtested → Paper → Live).
         </p>
       </div>
     </aside>
