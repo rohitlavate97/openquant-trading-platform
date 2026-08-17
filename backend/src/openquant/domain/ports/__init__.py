@@ -15,6 +15,7 @@ from openquant.domain.ports.event_bus import IEventBus
 from openquant.domain.ports.market_data_port import IMarketDataPort, ICandleAggregatorPort
 from openquant.domain.ports.backtest_port import IBacktestEngine
 from openquant.domain.ports.paper_trading_port import IPaperTradingEngine
+from openquant.domain.ports.reconciliation_port import IReconciliationEngine
 
 __all__ = [
     "IUserRepository",
@@ -27,6 +28,7 @@ __all__ = [
     "IStrategyEngine",
     "IBacktestEngine",
     "IPaperTradingEngine",
+    "IReconciliationEngine",
     "IBrokerAdapter",
     "IEventBus",
     "IMarketDataPort",

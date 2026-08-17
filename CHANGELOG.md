@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 12: Paper Trading Mode
+## [Unreleased] - Milestone 13: State Reconciliation Engine
+
+### Added
+- **State Reconciliation Engine (`src/openquant/adapters/reconciliation/state_reconciliation_engine.py`)**:
+  - Implements `IReconciliationEngine` port for scheduled and on-demand OMS vs Broker actuals reconciliation.
+  - Granular drift detection: `QUANTITY_MISMATCH`, `PHANTOM_INTERNAL`, `PHANTOM_BROKER`, `PRICE_MISMATCH`.
+  - Rule 5 Emergency Auto-Halt Interlock activating Platform Kill Switch on discrepancy detection.
+  - Manual one-click force synchronization (`sync_positions_from_broker`).
+- **Reconciliation Application Service (`src/openquant/application/services/reconciliation_service.py`)**:
+  - Pre-order consistency verification hook (`pre_order_reconciliation_check`).
+  - Immutable compliance logging for reconciliation runs, auto-halts, and force-sync events.
+- **Reconciliation REST API (`src/openquant/interfaces/api/v1/endpoints/reconciliation.py`)**:
+  - `POST /api/v1/reconciliation/run`, `POST /api/v1/reconciliation/accounts/{id}/run`, `GET /api/v1/reconciliation/reports`, `GET /api/v1/reconciliation/reports/{id}`, `POST /api/v1/reconciliation/accounts/{id}/sync`.
+- **Frontend State Reconciliation UI (`frontend/src/features/reconciliation/StateReconciliationPage.tsx`)**:
+  - Reconciliation health overview scorecards, Account control bar, Position Discrepancy Matrix with severity badges, and Historical Runs audit list.
+
+---
+
+## [0.12.0] - Milestone 12: Paper Trading Mode
 
 ### Added
 - **Real-Time Paper Trading Mode Engine (`src/openquant/adapters/paper/paper_trading_engine.py`)**:

@@ -69,6 +69,15 @@ from openquant.domain.models.paper_trading import (
     PaperTradingSession,
     PaperTradingSessionStatus,
 )
+from openquant.domain.models.reconciliation import (
+    CashDiscrepancy,
+    OrderDiscrepancy,
+    PositionDiscrepancy,
+    PositionDiscrepancyType,
+    ReconciliationReport,
+    ReconciliationSeverity,
+    ReconciliationStatus,
+)
 
 __all__ = [
     "Order",
@@ -123,4 +132,11 @@ __all__ = [
     "PaperTradingSessionStatus",
     "PaperTradingSession",
     "PaperTradingGateStatus",
+    "ReconciliationSeverity",
+    "ReconciliationStatus",
+    "PositionDiscrepancyType",
+    "PositionDiscrepancy",
+    "CashDiscrepancy",
+    "OrderDiscrepancy",
+    "ReconciliationReport",
 ]
