@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   Cpu,
   TrendingUp,
+  FileCode2,
   Code,
   ShoppingBag,
   Activity,
@@ -19,6 +20,7 @@ export type ActiveTab =
   | "overview"
   | "strategies"
   | "backtesting"
+  | "paper-trading"
   | "sandbox"
   | "orders"
   | "market-data"
@@ -40,6 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "backtesting", name: "Backtesting & WFV", icon: <TrendingUp className="w-4 h-4" /> },
+    { id: "paper-trading", name: "Paper Trading Mode", icon: <FileCode2 className="w-4 h-4" /> },
     { id: "sandbox", name: "Strategy Sandbox", icon: <Code className="w-4 h-4" /> },
     { id: "orders", name: "Orders & OMS", icon: <ShoppingBag className="w-4 h-4" /> },
     { id: "market-data", name: "Market Data & Feed Health", icon: <Activity className="w-4 h-4" /> },

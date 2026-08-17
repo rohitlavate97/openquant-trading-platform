@@ -5,7 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 11: Backtesting Engine & Walk-Forward Validation
+## [Unreleased] - Milestone 12: Paper Trading Mode
+
+### Added
+- **Real-Time Paper Trading Mode Engine (`src/openquant/adapters/paper/paper_trading_engine.py`)**:
+  - Implements `IPaperTradingEngine` port for live simulated execution against broker feeds.
+  - Latency simulation (50–200ms) and slippage modeling (configurable bps).
+  - Virtual Paper Accounts (`PaperAccount`) with marked-to-market balances and margin tracking.
+  - Active Paper Session event loop processing live ticks with `process_market_tick`.
+- **Stage 5 Promotion Gate Checklist & Compliance (`PaperTradingGateStatus`)**:
+  - Validates minimum 14 active days, 30 executed trades, and maximum 10.0% drawdown.
+  - Stage 5 (`PAPER_TRADING`) to Stage 6 (`HUMAN_APPROVAL`) promotion workflow.
+- **Paper Trading Application Service (`src/openquant/application/services/paper_trading_service.py`)**:
+  - Session lifecycle management (start, pause, stop) and Stage 6 gate promotion.
+  - Immutable compliance audit logging.
+- **Paper Trading REST API (`src/openquant/interfaces/api/v1/endpoints/paper_trading.py`)**:
+  - `POST /api/v1/paper-trading/accounts`, `GET /api/v1/paper-trading/accounts`, `POST /api/v1/paper-trading/sessions`, `GET /api/v1/paper-trading/sessions`, `GET /api/v1/paper-trading/sessions/{session_id}`, `POST /api/v1/paper-trading/sessions/{session_id}/pause`, `POST /api/v1/paper-trading/sessions/{session_id}/stop`, `GET /api/v1/paper-trading/sessions/{session_id}/gate-status`, `POST /api/v1/paper-trading/sessions/{session_id}/promote`.
+- **Frontend Paper Trading UI (`frontend/src/features/paper-trading/PaperTradingPage.tsx`)**:
+  - Virtual Account balance scorecards, active paper sessions table with pause/stop controls, launch session modal, and Stage 5 Promotion Gate checklist card.
+
+---
+
+## [0.11.0] - Milestone 11: Backtesting Engine & Walk-Forward Validation
 
 ### Added
 - **Event-Driven Backtesting Engine (`src/openquant/adapters/backtest/event_driven_engine.py`)**:

@@ -62,6 +62,13 @@ from openquant.domain.models.backtest import (
     WalkForwardResult,
     WalkForwardWindow,
 )
+from openquant.domain.models.paper_trading import (
+    PaperAccount,
+    PaperOrderExecutionConfig,
+    PaperTradingGateStatus,
+    PaperTradingSession,
+    PaperTradingSessionStatus,
+)
 
 __all__ = [
     "Order",
@@ -111,4 +118,9 @@ __all__ = [
     "BacktestResult",
     "WalkForwardWindow",
     "WalkForwardResult",
+    "PaperAccount",
+    "PaperOrderExecutionConfig",
+    "PaperTradingSessionStatus",
+    "PaperTradingSession",
+    "PaperTradingGateStatus",
 ]

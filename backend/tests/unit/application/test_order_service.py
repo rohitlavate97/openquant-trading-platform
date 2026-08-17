@@ -30,10 +30,10 @@ from openquant.application.services.risk_service import risk_service
 
 
 @pytest.fixture(autouse=True)
-def reset_kill_switch_state():
-    risk_service.deactivate_kill_switch()
+async def reset_kill_switch_state():
+    await risk_service.deactivate_kill_switch()
     yield
-    risk_service.deactivate_kill_switch()
+    await risk_service.deactivate_kill_switch()
 
 
 

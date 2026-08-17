@@ -15,6 +15,7 @@ from openquant.interfaces.api.v1.endpoints.risk import router as risk_router
 from openquant.interfaces.api.v1.endpoints.sandbox import router as sandbox_router
 from openquant.interfaces.api.v1.endpoints.strategies import router as strategies_router
 from openquant.interfaces.api.v1.endpoints.backtest import router as backtest_router
+from openquant.interfaces.api.v1.endpoints.paper_trading import router as paper_trading_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -31,3 +32,4 @@ api_v1_router.include_router(risk_router)
 api_v1_router.include_router(sandbox_router)
 api_v1_router.include_router(strategies_router)
 api_v1_router.include_router(backtest_router)
+api_v1_router.include_router(paper_trading_router)
