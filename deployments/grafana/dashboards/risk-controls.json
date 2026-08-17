@@ -1,0 +1,45 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Global Emergency Kill Switch Status",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "openquant_kill_switch_active",
+          "legendFormat": "Kill Switch Active"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 16, "x": 8, "y": 0 },
+      "id": 2,
+      "title": "Pre-Trade Hard-Stop Evaluations & Breaches",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by (verdict) (rate(openquant_risk_evaluations_total[1m]))",
+          "legendFormat": "{{verdict}}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["openquant", "risk", "kill-switch"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m"] },
+  "timezone": "browser",
+  "title": "OpenQuant - Pre-Trade Risk & Kill Switch",
+  "version": 1
+}

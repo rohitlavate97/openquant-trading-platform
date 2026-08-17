@@ -58,6 +58,9 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    from openquant.interfaces.api.middleware.correlation import CorrelationIdMiddleware
+    app.add_middleware(CorrelationIdMiddleware)
+
     # --------------------------------------------------------------------------
     # Custom Domain Exception Handlers
     # --------------------------------------------------------------------------
@@ -177,6 +180,8 @@ def create_app() -> FastAPI:
     app.include_router(api_v1_router, prefix=settings.API_V1_STR)
     from openquant.interfaces.api.v1.endpoints.stream import router as root_stream_router
     app.include_router(root_stream_router)
+    from openquant.interfaces.api.v1.endpoints.observability import router as observability_router
+    app.include_router(observability_router)
 
     return app
 

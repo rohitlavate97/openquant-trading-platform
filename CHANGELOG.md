@@ -5,7 +5,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 19: Live Trading Mode
+## [Unreleased] - Milestone 20: Observability & Monitoring
+
+### Added
+- **Prometheus Metrics Collector (`src/openquant/adapters/observability/prometheus_metrics.py`)**:
+  - Thread-safe `Counter`, `Gauge`, and `Histogram` with customizable latency buckets.
+  - Metrics tracking order lifecycle, execution latency, pre-trade risk duration, market tick staleness (<3000ms), reconciliation drift, active live sessions, and HTTP traffic.
+  - Raw OpenMetrics text generation exposed at `/metrics`.
+- **OpenTelemetry Distributed Tracing & Correlation Middleware (`src/openquant/adapters/observability/telemetry.py`, `src/openquant/interfaces/api/middleware/correlation.py`)**:
+  - `correlation_id_ctx` tracking `X-Correlation-ID` across coroutine boundaries.
+  - `trace_span` context manager for capturing spans, duration, and error details.
+  - `InMemoryTraceCollector` circular buffer for real-time span analysis.
+- **Observability Application Service & REST API (`src/openquant/application/services/observability_service.py`, `src/openquant/interfaces/api/v1/endpoints/observability.py`)**:
+  - `GET /metrics`: Prometheus scraping endpoint.
+  - `GET /api/v1/observability/summary`: System telemetry metrics JSON.
+  - `GET /api/v1/observability/traces`: Query distributed trace spans and timings.
+  - `GET /api/v1/observability/dashboards`: Grafana dashboard template registry.
+- **Grafana Dashboards Suite (`deployments/grafana/dashboards/`)**:
+  - `trading-operations.json`: Order rate by status and p95/p99 execution latency.
+  - `risk-controls.json`: Kill switch status, pre-trade hard stop evaluations & breach rate.
+  - `market-data-latency.json`: 3000ms staleness monitoring and tick ingestion volume.
+- **Frontend Observability Console (`frontend/src/features/observability/ObservabilityPage.tsx`)**:
+  - Real-time telemetry cards, trace span inspector with correlation ID search, live Prometheus `/metrics` exporter view, and 1-click Grafana JSON export.
+
+---
+
+## [0.19.0] - Milestone 19: Live Trading Mode
 
 ### Added
 - **Live Trading Domain Models & Ports (`src/openquant/domain/models/live_trading.py`, `src/openquant/domain/ports/live_trading_port.py`)**:

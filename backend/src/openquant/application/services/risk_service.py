@@ -20,6 +20,8 @@ from openquant.application.services.streaming_service import streaming_broadcast
 from openquant.application.services.audit_service import audit_log_service, AuditLogService
 from openquant.adapters.repositories.in_memory_oms_repo import order_repository, position_repository
 from openquant.adapters.brokers.registry import adapter_registry
+from openquant.adapters.observability.prometheus_metrics import metrics
+from openquant.adapters.observability.telemetry import trace_span
 
 logger = logging.getLogger("openquant.risk_service")
 
@@ -52,65 +54,75 @@ class RiskService:
         """Synchronously evaluate an order request against all 8 pre-trade hard stops.
         Raises KillSwitchActiveError or RiskLimitBreachedError if any blocking check fails.
         """
-        # 1. Fetch live market price
-        tick = await self._mkt_service.get_latest_tick(request.symbol)
-        mkt_price = tick.last_price if tick else (request.price or Decimal("100.0"))
+        import time
+        start_time = time.perf_counter()
 
-        # 2. Fetch open orders for account & symbol
-        open_orders = await order_repository.list_open_orders(request.account_id)
+        with trace_span("risk_engine.evaluate_order", {"symbol": request.symbol, "idempotency_key": request.idempotency_key}):
+            # 1. Fetch live market price
+            tick = await self._mkt_service.get_latest_tick(request.symbol)
+            mkt_price = tick.last_price if tick else (request.price or Decimal("100.0"))
 
-        # 3. Retrieve broker funds if available
-        account_funds = None
-        adapter = adapter_registry.get(request.broker_id)
-        if adapter:
-            try:
-                account_funds = await adapter.get_account_info(request.account_id)
-            except Exception:
-                pass
+            # 2. Fetch open orders for account & symbol
+            open_orders = await order_repository.list_open_orders(request.account_id)
 
-        # 4. Evaluate synchronously via Risk Engine
-        result = await self._engine.evaluate_order(
-            request=request,
-            current_market_price=mkt_price,
-            account_funds=account_funds,
-            open_orders=open_orders,
-            daily_loss_percent=0.0,
-            current_drawdown_percent=0.0,
-        )
+            # 3. Retrieve broker funds if available
+            account_funds = None
+            adapter = adapter_registry.get(request.broker_id)
+            if adapter:
+                try:
+                    account_funds = await adapter.get_account_info(request.account_id)
+                except Exception:
+                    pass
 
-        if not result.allowed:
-            first_reason = result.rejection_reasons[0] if result.rejection_reasons else "Pre-trade risk limit breached."
-
-            # Log audit event
-            await self._audit.log_event(
-                event_type="RISK_CHECK_REJECTED",
-                actor_id="risk_engine",
-                entity_type="ORDER",
-                entity_id=request.idempotency_key,
-                action="BLOCK",
-                severity="HIGH",
-                payload={
-                    "rejection_reasons": result.rejection_reasons,
-                    "symbol": request.symbol,
-                    "quantity": str(request.quantity),
-                },
+            # 4. Evaluate synchronously via Risk Engine
+            result = await self._engine.evaluate_order(
+                request=request,
+                current_market_price=mkt_price,
+                account_funds=account_funds,
+                open_orders=open_orders,
+                daily_loss_percent=0.0,
+                current_drawdown_percent=0.0,
             )
 
-            # Broadcast risk rejection over WebSockets
-            await self._broadcaster.broadcast_telemetry(
-                "PRE_TRADE_RISK_REJECTED",
-                {
-                    "symbol": request.symbol,
-                    "idempotency_key": request.idempotency_key,
-                    "reasons": result.rejection_reasons,
-                },
-            )
+            # Record Prometheus Metrics
+            duration = time.perf_counter() - start_time
+            metrics.risk_evaluation_duration_seconds.observe(duration, stage="pre_trade")
 
-            if "Kill Switch is ACTIVE" in first_reason:
-                raise KillSwitchActiveError(first_reason)
-            raise RiskLimitBreachedError(first_reason)
+            if not result.allowed:
+                first_reason = result.rejection_reasons[0] if result.rejection_reasons else "Pre-trade risk limit breached."
+                metrics.risk_evaluations_total.inc(verdict="REJECTED", rule="HARD_STOP")
 
-        return result
+                # Log audit event
+                await self._audit.log_event(
+                    event_type="RISK_CHECK_REJECTED",
+                    actor_id="risk_engine",
+                    entity_type="ORDER",
+                    entity_id=request.idempotency_key,
+                    action="BLOCK",
+                    severity="HIGH",
+                    payload={
+                        "rejection_reasons": result.rejection_reasons,
+                        "symbol": request.symbol,
+                        "quantity": str(request.quantity),
+                    },
+                )
+
+                # Broadcast risk rejection over WebSockets
+                await self._broadcaster.broadcast_telemetry(
+                    "PRE_TRADE_RISK_REJECTED",
+                    {
+                        "symbol": request.symbol,
+                        "idempotency_key": request.idempotency_key,
+                        "reasons": result.rejection_reasons,
+                    },
+                )
+
+                if "Kill Switch is ACTIVE" in first_reason:
+                    raise KillSwitchActiveError(first_reason)
+                raise RiskLimitBreachedError(first_reason)
+
+            metrics.risk_evaluations_total.inc(verdict="ALLOWED", rule="PASSED")
+            return result
 
     async def activate_kill_switch(
         self,
@@ -129,6 +141,7 @@ class RiskService:
             flatten_positions=flatten_positions,
         )
 
+        metrics.kill_switch_status.set(1.0, level=level.value)
         logger.critical(f"GLOBAL KILL SWITCH ACTIVATED by '{activated_by}'! Level: {level.value}. Reason: {reason}")
 
         # Cancel all open orders across brokers
@@ -171,6 +184,7 @@ class RiskService:
     async def deactivate_kill_switch(self, actor_id: str = "super_admin") -> KillSwitchState:
         """Deactivate Kill Switch resuming normal trading execution."""
         state = self._engine.deactivate_kill_switch()
+        metrics.kill_switch_status.set(0.0, level="GLOBAL")
         logger.info(f"Kill switch deactivated by '{actor_id}'. Trading resumed.")
 
         await self._audit.log_event(

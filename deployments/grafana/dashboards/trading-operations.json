@@ -1,0 +1,49 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Total Orders Placed (by Status)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by (status) (rate(openquant_orders_total[1m]))",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "title": "Order Execution Latency (p95 & p99)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(openquant_order_latency_seconds_bucket[1m])) by (le))",
+          "legendFormat": "p95 latency"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(openquant_order_latency_seconds_bucket[1m])) by (le))",
+          "legendFormat": "p99 latency"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["openquant", "oms", "trading"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m"] },
+  "timezone": "browser",
+  "title": "OpenQuant - Trading Operations & OMS",
+  "version": 1
+}

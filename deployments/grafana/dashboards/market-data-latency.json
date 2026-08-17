@@ -1,0 +1,45 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Market Data Staleness Guard (< 3000ms Threshold)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "openquant_market_data_staleness_ms",
+          "legendFormat": "{{symbol}} staleness (ms)"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "title": "Ingested Tick Rate by Symbol",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by (symbol) (rate(openquant_market_ticks_total[1m]))",
+          "legendFormat": "{{symbol}}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["openquant", "market-data", "latency"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m"] },
+  "timezone": "browser",
+  "title": "OpenQuant - Market Data & Feed Latency",
+  "version": 1
+}
