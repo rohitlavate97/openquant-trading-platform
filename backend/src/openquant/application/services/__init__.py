@@ -66,6 +66,12 @@ from openquant.application.services.observability_service import (
     ObservabilityService,
     observability_service,
 )
+from openquant.application.services.security_audit_service import (
+    SecurityAuditService,
+    security_audit_service,
+    SecurityAuditReport,
+    SecurityCheckResult,
+)
 
 __all__ = [
     "HealthService",
@@ -112,4 +118,8 @@ __all__ = [
     "LiveTradingService",
     "ObservabilityService",
     "observability_service",
+    "SecurityAuditService",
+    "security_audit_service",
+    "SecurityAuditReport",
+    "SecurityCheckResult",
 ]

@@ -21,12 +21,14 @@ import {
   Settings,
   Zap,
   Gauge,
+  ShieldCheck,
 } from "lucide-react";
 
 export type ActiveTab =
   | "overview"
   | "live-trading"
   | "observability"
+  | "security"
   | "portfolio"
   | "strategies"
   | "sources"
@@ -56,6 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: "live-trading", name: "Live Trading Mode", icon: <Zap className="w-4 h-4 text-emerald-400" /> },
     { id: "observability", name: "Observability & Metrics", icon: <Gauge className="w-4 h-4 text-indigo-400" /> },
+    { id: "security", name: "Security & Penetration", icon: <ShieldCheck className="w-4 h-4 text-emerald-400" /> },
     { id: "portfolio", name: "Portfolio & Analytics", icon: <PieChart className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "sources", name: "Strategy Sources", icon: <Layers className="w-4 h-4" /> },

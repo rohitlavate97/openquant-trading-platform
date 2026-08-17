@@ -4,6 +4,7 @@ import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
 import { LiveTradingConsolePage } from "@/features/live-trading/LiveTradingConsolePage";
 import { ObservabilityPage } from "@/features/observability/ObservabilityPage";
+import { SecurityHardeningPage } from "@/features/security/SecurityHardeningPage";
 import { StrategyManagementPage } from "@/features/strategies/StrategyManagementPage";
 import { StrategySourcesPage } from "@/features/sources/StrategySourcesPage";
 import { AIAdvisorySuitePage } from "@/features/ai-advisory/AIAdvisorySuitePage";
@@ -77,6 +78,8 @@ export const App: React.FC = () => {
         return <LiveTradingConsolePage />;
       case "observability":
         return <ObservabilityPage />;
+      case "security":
+        return <SecurityHardeningPage />;
       case "strategies":
         return <StrategyManagementPage />;
       case "sources":

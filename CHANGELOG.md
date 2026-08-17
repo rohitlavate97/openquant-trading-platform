@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 20: Observability & Monitoring
+## [Unreleased] - Milestone 21: Security Hardening & Load Testing
+
+### Added
+- **Automated Security Penetration Diagnostics Suite (`src/openquant/application/services/security_audit_service.py`, `src/openquant/interfaces/api/v1/endpoints/security.py`)**:
+  - 6-point automated security verification matrix covering AST sandbox escape defense, AES-Fernet PBKDF2 secrets integrity, HMAC-SHA256 & nonce replay prevention, synchronous sub-millisecond risk evaluation latency, Rule 8 composite idempotency lock, and global kill switch interlock.
+  - Endpoints: `GET /api/v1/security/audit-report` and `POST /api/v1/security/run-penetration-test`.
+- **AST Sandbox Escape Penetration Tests (`backend/tests/security/test_sandbox_escape_penetration.py`)**:
+  - Validates blocking of prohibited imports (`os`, `subprocess`, `socket`, `pty`), dynamic imports (`__import__`), reflection (`__subclasses__`), dangerous builtins (`eval`, `exec`, `compile`, `open`), and runaway execution timeout termination.
+- **OMS Concurrency Stress & Race Condition Hardening (`backend/tests/stress/test_order_concurrency_stress.py`)**:
+  - Verified 20 simultaneous submissions with identical `(account_id, idempotency_key)` preventing duplicate routing or position drift.
+  - Tested 25 burst orders against synchronous pre-trade rate limiter and 30-order burst throughput with accurate atomic position accumulation.
+- **Webhook Replay Attack & HMAC-SHA256 Security Tests (`backend/tests/security/test_webhook_replay_security.py`)**:
+  - Validates constant-time signature verification, clock skew window ($\pm 60$s), and nonce deduplication cache.
+- **Pre-Trade Risk Engine High-Throughput Benchmarks (`backend/tests/stress/test_risk_engine_throughput_benchmark.py`)**:
+  - Validated 50 sequential and 50 concurrent pre-trade evaluations with sub-1ms latency ($> 500$ ops/sec).
+- **Frontend Security Hardening Console (`frontend/src/features/security/SecurityHardeningPage.tsx`)**:
+  - 100% Security Scorecard, verification matrix, 1-click penetration test runner, and capital safety rule guardrail cards.
+
+## Milestone 20: Observability & Monitoring
 
 ### Added
 - **Prometheus Metrics Collector (`src/openquant/adapters/observability/prometheus_metrics.py`)**:

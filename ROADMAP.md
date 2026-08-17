@@ -24,5 +24,5 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **18** | **Additional Broker Adapters** | 🟢 **Completed** | Interactive Brokers (TWS / IB Gateway), Angel One SmartAPI, Binance Crypto (Spot & USDT-M Futures) with 5-point certification harness. |
 | **19** | **Live Trading Mode** | 🟢 **Completed** | Capital allocation controls, gradual position scaling (25%, 50%, 100%), 5-point preflight verification matrix, dual-operator authorization, and Live Mission Control UI. |
 | **20** | **Observability & Monitoring** | 🟢 **Completed** | Prometheus `/metrics` collector, OpenTelemetry distributed tracing, `X-Correlation-ID` context propagation, Grafana dashboard suite, and Observability Console UI. |
-| **21** | **Security Hardening & Load Testing** | ⚪ Pending | Penetration testing, sandbox escape tests, stress testing order pipelines. |
+| **21** | **Security Hardening & Load Testing** | 🟢 **Completed** | Penetration testing suite, AST sandbox escape defenses, composite idempotency race condition stress tests, HMAC-SHA256 replay guards, sub-millisecond risk throughput benchmark, and Security Console. |
 | **22** | **Production Deployment** | ⚪ Pending | Production Docker images, Kubernetes helm charts, self-hosting deployment guide. |
