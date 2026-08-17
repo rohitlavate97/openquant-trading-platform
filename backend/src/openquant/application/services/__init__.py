@@ -57,6 +57,10 @@ from openquant.application.services.portfolio_service import (
     PortfolioService,
     portfolio_service,
 )
+from openquant.application.services.notification_service import (
+    NotificationService,
+    notification_service,
+)
 
 __all__ = [
     "HealthService",
@@ -98,4 +102,6 @@ __all__ = [
     "ai_advisory_service",
     "PortfolioService",
     "portfolio_service",
+    "NotificationService",
+    "notification_service",
 ]

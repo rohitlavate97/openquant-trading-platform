@@ -23,6 +23,11 @@ from openquant.domain.ports.strategy_sources_port import (
 )
 from openquant.domain.ports.ai_advisory_port import IAIAdvisoryEngine
 from openquant.domain.ports.portfolio_port import IPortfolioAnalyticsEngine
+from openquant.domain.ports.notification_port import (
+    INotificationChannelRepository,
+    INotificationDispatcher,
+    INotificationLogRepository,
+)
 
 __all__ = [
     "IUserRepository",
@@ -41,6 +46,9 @@ __all__ = [
     "IStructuredSheetsParser",
     "IAIAdvisoryEngine",
     "IPortfolioAnalyticsEngine",
+    "INotificationDispatcher",
+    "INotificationChannelRepository",
+    "INotificationLogRepository",
     "IBrokerAdapter",
     "IEventBus",
     "IMarketDataPort",

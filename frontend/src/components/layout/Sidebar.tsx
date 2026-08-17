@@ -14,6 +14,7 @@ import {
   GitBranch,
   KeyRound,
   Key,
+  Bell,
   Shield,
   FileText,
   Server,
@@ -36,6 +37,7 @@ export type ActiveTab =
   | "promotion"
   | "secrets"
   | "api-keys"
+  | "notifications"
   | "audit-logs"
   | "risk"
   | "settings";
@@ -62,6 +64,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
     { id: "promotion", name: "Promotion Gate", icon: <GitBranch className="w-4 h-4" /> },
     { id: "secrets", name: "Broker Secrets Vault", icon: <KeyRound className="w-4 h-4" /> },
     { id: "api-keys", name: "API Keys", icon: <Key className="w-4 h-4" /> },
+    { id: "notifications", name: "Alerts & Event Bus", icon: <Bell className="w-4 h-4" /> },
     { id: "audit-logs", name: "Audit Trail", icon: <FileText className="w-4 h-4" /> },
     { id: "risk", name: "Risk Controls", icon: <Shield className="w-4 h-4" /> },
     { id: "settings", name: "Settings", icon: <Settings className="w-4 h-4" /> },

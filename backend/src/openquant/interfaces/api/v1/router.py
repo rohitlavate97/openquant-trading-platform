@@ -20,6 +20,7 @@ from openquant.interfaces.api.v1.endpoints.reconciliation import router as recon
 from openquant.interfaces.api.v1.endpoints.strategy_sources import router as strategy_sources_router
 from openquant.interfaces.api.v1.endpoints.ai_advisory import router as ai_advisory_router
 from openquant.interfaces.api.v1.endpoints.portfolio import router as portfolio_router
+from openquant.interfaces.api.v1.endpoints.notifications import router as notifications_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -41,5 +42,7 @@ api_v1_router.include_router(reconciliation_router)
 api_v1_router.include_router(strategy_sources_router)
 api_v1_router.include_router(ai_advisory_router)
 api_v1_router.include_router(portfolio_router)
+api_v1_router.include_router(notifications_router)
+
 
 

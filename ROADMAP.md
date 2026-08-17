@@ -20,7 +20,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **14** | **Additional Strategy Sources** | 🟢 **Completed** | Signed TradingView webhooks (HMAC-SHA256 & replay nonce protected), MT5 ZeroMQ bridge, structured Sheets CSV parser, and Strategy Sources UI. |
 | **15** | **AI Advisory Suite** | 🟢 **Completed** | Assistant, AST-verified code generator (mandatory human review Rule 3), telemetry log analyzer, and explainable risk advisor. |
 | **16** | **Portfolio Management & Analytics** | 🟢 **Completed** | Multi-account position tracking, mark-to-market valuations, asset allocation breakdown, equity & drawdown curves, and OMS 1-click position flattening. |
-| **17** | **Notification System & Event Bus** | ⚪ Pending | Multi-channel alerting (Telegram, Discord, Email), event-driven scheduler. |
+| **17** | **Notification System & Event Bus** | 🟢 **Completed** | Multi-channel alert dispatching (Telegram, Discord, Email, Webhooks, In-App), event bus pub-sub routing, and Notification Center UI. |
 | **18** | **Additional Broker Adapters** | ⚪ Pending | Interactive Brokers, Angel One, Binance/Crypto (certified independently). |
 | **19** | **Live Trading Mode** | ⚪ Pending | Capital allocation controls, gradual position scaling, rigorous pre-requisite verification. |
 | **20** | **Observability & Monitoring** | ⚪ Pending | Prometheus metrics, Grafana dashboards, Loki log aggregation, OpenTelemetry traces. |

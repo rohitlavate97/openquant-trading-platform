@@ -108,6 +108,14 @@ from openquant.domain.models.portfolio import (
     PortfolioPosition,
     PortfolioSummary,
 )
+from openquant.domain.models.notification import (
+    NotificationChannelConfig,
+    NotificationChannelType,
+    NotificationMessage,
+    NotificationSeverity,
+    NotificationStatus,
+    PlatformEvent,
+)
 
 __all__ = [
     "Order",
@@ -193,4 +201,10 @@ __all__ = [
     "AssetAllocationItem",
     "PortfolioPerformanceSnapshot",
     "PortfolioSummary",
+    "NotificationChannelType",
+    "NotificationSeverity",
+    "NotificationStatus",
+    "NotificationChannelConfig",
+    "NotificationMessage",
+    "PlatformEvent",
 ]

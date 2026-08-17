@@ -5,7 +5,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 16: Portfolio Management & Analytics
+## [Unreleased] - Milestone 17: Notification System & Event Bus
+
+### Added
+- **Notification Domain Models & Ports (`src/openquant/domain/models/notification.py`, `src/openquant/domain/ports/notification_port.py`)**:
+  - `NotificationChannelConfig`, `NotificationMessage`, `NotificationChannelType`, `NotificationSeverity`, `NotificationStatus`, `PlatformEvent`.
+  - `IEventBus`, `INotificationDispatcher`, `INotificationChannelRepository`, `INotificationLogRepository`.
+- **Event Bus & Notification Dispatcher Adapters (`src/openquant/adapters/event_bus/`, `src/openquant/adapters/notifications/`)**:
+  - `InMemoryEventBus` with topic and wildcard publish-subscribe pattern matching.
+  - `NotificationDispatcher` supporting Telegram bot API, Discord rich webhook embeds, SMTP Email, signed HTTP Webhooks, and In-App delivery.
+  - Automated connectivity test ping runner (`test_channel`).
+- **Notification Application Service (`src/openquant/application/services/notification_service.py`)**:
+  - Channel CRUD, manual broadcast alerting, unread in-app counter, and automated event subscriptions (`risk.kill_switch`, `risk.breach`, `reconciliation.mismatch`, `market_data.stale`).
+- **Notification REST API (`src/openquant/interfaces/api/v1/endpoints/notifications.py`)**:
+  - `GET /api/v1/notifications/channels`, `POST /api/v1/notifications/channels`, `PUT /api/v1/notifications/channels/{id}`, `DELETE /api/v1/notifications/channels/{id}`, `POST /api/v1/notifications/channels/{id}/test`, `POST /api/v1/notifications/broadcast`, `GET /api/v1/notifications/logs`, `GET /api/v1/notifications/in-app`, `POST /api/v1/notifications/in-app/{id}/read`.
+- **Frontend Notification Center UI (`frontend/src/features/notifications/NotificationCenterPage.tsx`)**:
+  - Active channels counter, 24h dispatched log metrics, and unread in-app alerts.
+  - Configured channels table with 1-click Test Ping buttons.
+  - Modal to register Discord, Telegram, Email, and Webhook channels.
+  - Manual broadcast dispatcher and interactive in-app alert feed.
+
+---
+
+## [0.16.0] - Milestone 16: Portfolio Management & Analytics
 
 ### Added
 - **Portfolio Domain Models & Ports (`src/openquant/domain/models/portfolio.py`, `src/openquant/domain/ports/portfolio_port.py`)**:

@@ -15,6 +15,7 @@ import { MarketDataManagementPage } from "@/features/market-data/MarketDataManag
 import { BrokerAdaptersPage } from "@/features/brokers/BrokerAdaptersPage";
 import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVault";
 import { APIKeyManagement } from "@/features/api-keys/APIKeyManagement";
+import { NotificationCenterPage } from "@/features/notifications/NotificationCenterPage";
 import { AuditLogViewer } from "@/features/audit/AuditLogViewer";
 import { PromotionGateOverview } from "@/features/promotion-gate/PromotionGateOverview";
 import { RiskManagementPage } from "@/features/risk/RiskManagementPage";
@@ -94,6 +95,8 @@ export const App: React.FC = () => {
         return <MarketDataManagementPage />;
       case "brokers":
         return <BrokerAdaptersPage />;
+      case "notifications":
+        return <NotificationCenterPage />;
       case "audit-logs":
         return <AuditLogViewer />;
       case "secrets":
