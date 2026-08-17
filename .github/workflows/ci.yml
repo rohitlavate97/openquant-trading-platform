@@ -1,0 +1,69 @@
+name: OpenQuant CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'milestone-*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend-checks:
+    name: Backend Quality & Boundary Tests (Python 3.13)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Set up Python 3.13
+        run: uv python install 3.13
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: uv sync --all-extras --dev
+
+      - name: Architecture Boundary & Structural Validation
+        working-directory: ./backend
+        run: uv run pytest tests/unit/test_architecture_boundaries.py -v
+
+      - name: Run Backend Unit & Integration Tests
+        working-directory: ./backend
+        run: uv run pytest tests/ -v --cov=src/openquant --cov-report=term-missing
+
+  frontend-checks:
+    name: Frontend Quality & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: TypeScript Type Check
+        working-directory: ./frontend
+        run: npm run typecheck
+
+      - name: Run Frontend Tests
+        working-directory: ./frontend
+        run: npm run test:run
+
+      - name: Build Frontend Bundle
+        working-directory: ./frontend
+        run: npm run build

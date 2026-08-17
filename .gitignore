@@ -1,0 +1,72 @@
+# Environment variables & secrets (CRITICAL: NEVER COMMIT BROKER CREDENTIALS)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+*.credentials
+
+# Python & UV
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Node & Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Databases
+logs/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Sandbox Runtime Artifacts
+scratch/
+sandbox_tmp/
