@@ -5,7 +5,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 06: Market Data Ingestion & Staleness Engine
+## [Unreleased] - Milestone 07: Order Management System (OMS)
+
+### Added
+- **OMS Application Service (`src/openquant/application/services/order_service.py`)**:
+  - Strict idempotency validation against `(account_id, idempotency_key)` preventing duplicate live broker executions on retries.
+  - Complete order lifecycle state machine: `PENDING_SUBMISSION` -> `SUBMITTED` -> `OPEN` -> `PARTIALLY_FILLED` -> `FILLED` / `CANCELLED` / `REJECTED`.
+  - Real-time weighted average entry price and realized/unrealized PnL portfolio accounting.
+  - Automated continuous position reconciliation engine comparing internal OMS actuals against live broker positions.
+- **OMS Repositories & Exceptions**:
+  - `InMemoryOrderRepository`, `InMemoryPositionRepository`, `OrderCancellationError`.
+- **OMS REST Endpoints (`src/openquant/interfaces/api/v1/endpoints/orders.py`)**:
+  - `POST /api/v1/orders`, `GET /api/v1/orders`, `GET /api/v1/orders/{order_id}`, `DELETE /api/v1/orders/{order_id}`, `GET /api/v1/positions`, `POST /api/v1/positions/reconcile`.
+- **Frontend Order Management UI (`frontend/src/features/orders/OrderManagementPage.tsx`)**:
+  - Direct Order Ticket with Side/Type/Price selectors and UUID idempotency key generator.
+  - Active & Historical Orders Table with fill progress bars and 1-click cancel buttons.
+  - Live Portfolio Positions table with realized/unrealized PnL badges and 1-click "Reconcile Broker" trigger.
+
+---
+
+## [0.6.0] - Milestone 06: Market Data Ingestion & Staleness Engine
 
 ### Added
 - **Market Data Domain Models & Ports (`src/openquant/domain/models/market_data.py`, `src/openquant/domain/ports/market_data_port.py`)**:

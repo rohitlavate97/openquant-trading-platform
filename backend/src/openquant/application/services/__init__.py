@@ -14,6 +14,12 @@ from openquant.application.services.market_data_service import (
     MarketDataService,
     market_data_service,
 )
+from openquant.application.services.order_service import (
+    OrderManagementService,
+    order_service,
+    PositionReconciliationReport,
+    PositionReconciliationItem,
+)
 
 __all__ = [
     "HealthService",
@@ -32,4 +38,8 @@ __all__ = [
     "streaming_broadcaster",
     "MarketDataService",
     "market_data_service",
+    "OrderManagementService",
+    "order_service",
+    "PositionReconciliationReport",
+    "PositionReconciliationItem",
 ]

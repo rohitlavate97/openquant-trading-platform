@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
+import { OrderManagementPage } from "@/features/orders/OrderManagementPage";
 import { MarketDataManagementPage } from "@/features/market-data/MarketDataManagementPage";
 import { BrokerAdaptersPage } from "@/features/brokers/BrokerAdaptersPage";
 import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVault";
@@ -65,6 +66,8 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "orders":
+        return <OrderManagementPage />;
       case "market-data":
         return <MarketDataManagementPage />;
       case "brokers":

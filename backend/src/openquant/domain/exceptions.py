@@ -85,3 +85,8 @@ class BrokerConnectionError(OpenQuantDomainError):
 class OrderPlacementError(OpenQuantDomainError):
     """Raised when an order cannot be placed or modified by the broker adapter."""
 
+
+class OrderCancellationError(OpenQuantDomainError):
+    """Raised when an order cannot be cancelled by the broker adapter or is invalid."""
+
+
