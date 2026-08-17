@@ -1,7 +1,7 @@
 """Hexagonal Port: Abstract Broker Adapter Interface.
 
 The single, unified port through which the OMS and Market Data Engine interact with brokers.
-No component in the domain or application layer ever interacts with specific broker SDKs.
+No component in the domain or application layer ever interacts with specific broker SDKs directly.
 """
 
 from abc import ABC, abstractmethod
@@ -9,16 +9,22 @@ from decimal import Decimal
 from typing import AsyncIterator
 from openquant.domain.models.order import Order, OrderExecutionReport, OrderStatus
 from openquant.domain.models.position import Position
-from openquant.domain.models.market_data import Tick
+from openquant.domain.models.market_data import Tick, Instrument
+from openquant.domain.models.broker import (
+    BrokerAccountInfo,
+    BrokerAdapterMetadata,
+    BrokerHolding,
+    BrokerSessionState,
+)
 
 
 class IBrokerAdapter(ABC):
-    """Abstract interface defining the contract for all broker adapters."""
+    """Abstract interface defining the complete contract for all broker adapters."""
 
     @property
     @abstractmethod
     def adapter_id(self) -> str:
-        """Unique identifier for this broker adapter (e.g., 'zerodha', 'interactive_brokers')."""
+        """Unique identifier for this broker adapter (e.g. 'paper_broker', 'zerodha')."""
 
     @property
     @abstractmethod
@@ -34,6 +40,16 @@ class IBrokerAdapter(ABC):
     @abstractmethod
     def is_live_trading_eligible(self) -> bool:
         """Whether this adapter is permitted for live capital routing."""
+
+    @property
+    @abstractmethod
+    def session_state(self) -> BrokerSessionState:
+        """Current lifecycle connection state of the adapter."""
+
+    @property
+    @abstractmethod
+    def metadata(self) -> BrokerAdapterMetadata:
+        """Capability metadata and supported order types / asset classes."""
 
     @abstractmethod
     async def connect(self, credentials: dict[str, str]) -> bool:
@@ -69,12 +85,24 @@ class IBrokerAdapter(ABC):
         """Query current status of an order from the broker."""
 
     @abstractmethod
+    async def get_order_history(self, account_id: str) -> list[OrderExecutionReport]:
+        """Fetch historical executed/cancelled orders from the broker."""
+
+    @abstractmethod
     async def get_positions(self, account_id: str) -> list[Position]:
         """Fetch actual real-time positions held at the broker for reconciliation."""
 
     @abstractmethod
-    async def get_funds(self, account_id: str) -> dict[str, Decimal]:
+    async def get_holdings(self, account_id: str) -> list[BrokerHolding]:
+        """Fetch long-term portfolio holdings and equity deliveries."""
+
+    @abstractmethod
+    async def get_funds(self, account_id: str) -> BrokerAccountInfo:
         """Fetch available margin, cash, and collateral balance from broker."""
+
+    @abstractmethod
+    async def download_instruments(self, exchange: str | None = None) -> list[Instrument]:
+        """Fetch tradable instruments catalog from broker."""
 
     @abstractmethod
     async def subscribe_market_data(self, symbols: list[str]) -> None:
@@ -87,3 +115,7 @@ class IBrokerAdapter(ABC):
     @abstractmethod
     def stream_ticks(self) -> AsyncIterator[Tick]:
         """Yield live real-time market data ticks from the broker stream."""
+
+    @abstractmethod
+    def stream_order_updates(self) -> AsyncIterator[OrderExecutionReport]:
+        """Yield real-time order status execution reports as they occur."""

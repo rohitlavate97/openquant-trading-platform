@@ -72,3 +72,16 @@ class SecretsDecryptionError(OpenQuantDomainError):
 
 class APIKeyRevokedError(AuthenticationError):
     """Raised when an API key has been revoked or expired."""
+
+
+class BrokerAdapterNotFoundError(OpenQuantDomainError):
+    """Raised when an operation requests a non-existent or unregistered broker adapter."""
+
+
+class BrokerConnectionError(OpenQuantDomainError):
+    """Raised when broker handshake, authentication, or network session fails."""
+
+
+class OrderPlacementError(OpenQuantDomainError):
+    """Raised when an order cannot be placed or modified by the broker adapter."""
+

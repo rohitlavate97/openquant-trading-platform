@@ -1,44 +1,43 @@
-"""Broker Adapter Registry managing certified adapters and runtime routing."""
+"""Broker Adapter Registry managing discovery, lifecycle, and certification."""
 
-import logging
 from openquant.domain.ports.broker_adapter import IBrokerAdapter
-
-logger = logging.getLogger(__name__)
+from openquant.domain.models.broker import BrokerAdapterMetadata
+from openquant.adapters.brokers.paper_adapter import PaperBrokerAdapter
+from openquant.adapters.brokers.zerodha_adapter import ZerodhaKiteAdapter
 
 
 class BrokerAdapterRegistry:
-    """Central registry for broker adapters, tracking certification and live trading eligibility."""
+    """Central registry holding configured broker adapters and managing certification states."""
 
     def __init__(self) -> None:
         self._adapters: dict[str, IBrokerAdapter] = {}
 
     def register(self, adapter: IBrokerAdapter) -> None:
-        """Register a broker adapter instance."""
+        """Register a broker adapter into the platform."""
         self._adapters[adapter.adapter_id] = adapter
-        logger.info(
-            "Registered broker adapter: id=%s display=%s certified=%s live_eligible=%s",
-            adapter.adapter_id,
-            adapter.display_name,
-            adapter.is_certified,
-            adapter.is_live_trading_eligible,
-        )
 
     def get(self, adapter_id: str) -> IBrokerAdapter | None:
-        """Retrieve registered adapter by identifier."""
+        """Retrieve adapter by ID."""
         return self._adapters.get(adapter_id)
 
-    def list_adapters(self) -> list[dict[str, str | bool]]:
-        """List metadata for all registered broker adapters."""
-        return [
-            {
-                "adapter_id": adapter.adapter_id,
-                "display_name": adapter.display_name,
-                "is_certified": adapter.is_certified,
-                "is_live_trading_eligible": adapter.is_live_trading_eligible,
-            }
-            for adapter in self._adapters.values()
-        ]
+    def list_adapters(self) -> list[BrokerAdapterMetadata]:
+        """List metadata and certification status of all registered adapters."""
+        return [adapter.metadata for adapter in self._adapters.values()]
+
+    def list_certified_adapters(self) -> list[BrokerAdapterMetadata]:
+        """List only adapters certified for live trading."""
+        return [adapter.metadata for adapter in self._adapters.values() if adapter.is_live_trading_eligible]
 
 
-# Global adapter registry singleton
-adapter_registry = BrokerAdapterRegistry()
+def create_default_registry() -> BrokerAdapterRegistry:
+    """Factory creating registry populated with standard first-party broker adapters."""
+    registry = BrokerAdapterRegistry()
+    registry.register(PaperBrokerAdapter())
+    registry.register(ZerodhaKiteAdapter(is_sandbox=True))
+    return registry
+
+
+# Global default broker registry instance
+broker_registry = create_default_registry()
+adapter_registry = broker_registry
+

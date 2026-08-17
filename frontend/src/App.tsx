@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
+import { BrokerAdaptersPage } from "@/features/brokers/BrokerAdaptersPage";
 import { BrokerCredentialsVault } from "@/features/secrets/BrokerCredentialsVault";
 import { APIKeyManagement } from "@/features/api-keys/APIKeyManagement";
 import { AuditLogViewer } from "@/features/audit/AuditLogViewer";
@@ -63,6 +64,8 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "brokers":
+        return <BrokerAdaptersPage />;
       case "audit-logs":
         return <AuditLogViewer />;
       case "secrets":

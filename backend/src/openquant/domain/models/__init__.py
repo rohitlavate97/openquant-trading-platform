@@ -38,6 +38,14 @@ from openquant.domain.models.auth import (
     User,
     UserRole,
 )
+from openquant.domain.models.broker import (
+    BrokerAccountInfo,
+    BrokerAdapterMetadata,
+    BrokerHolding,
+    BrokerSecurityAuditCheck,
+    BrokerSecurityAuditReport,
+    BrokerSessionState,
+)
 
 __all__ = [
     "Order",
@@ -69,4 +77,10 @@ __all__ = [
     "ROLE_PERMISSIONS_MAP",
     "APIKey",
     "BrokerCredentialVaultItem",
+    "BrokerAccountInfo",
+    "BrokerAdapterMetadata",
+    "BrokerHolding",
+    "BrokerSecurityAuditCheck",
+    "BrokerSecurityAuditReport",
+    "BrokerSessionState",
 ]

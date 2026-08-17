@@ -6,11 +6,13 @@ import {
   Key,
   Shield,
   FileText,
+  Server,
   Settings,
 } from "lucide-react";
 
 export type ActiveTab =
   | "overview"
+  | "brokers"
   | "promotion"
   | "secrets"
   | "api-keys"
@@ -26,6 +28,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "brokers", name: "Broker Adapters", icon: <Server className="w-4 h-4" /> },
     { id: "promotion", name: "Promotion Gate", icon: <GitBranch className="w-4 h-4" /> },
     { id: "secrets", name: "Broker Secrets Vault", icon: <KeyRound className="w-4 h-4" /> },
     { id: "api-keys", name: "API Keys", icon: <Key className="w-4 h-4" /> },
@@ -63,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
       <div className="p-3 bg-surface-raised rounded-xl border border-border/80 text-xs space-y-2">
         <div className="text-[11px] font-semibold text-slate-300">Capital Safety Guarantees</div>
         <p className="text-[10px] text-slate-400 leading-normal">
-          Immutable audit trail for all order dispatches and risk engine halts. Zero plaintext secrets.
+          Non-Negotiable Rule 9: Every broker adapter is sandbox-validated and security-audited before live trading.
         </p>
       </div>
     </aside>

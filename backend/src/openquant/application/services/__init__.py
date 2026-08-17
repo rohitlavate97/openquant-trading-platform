@@ -1,16 +1,23 @@
 """Application service layer exports."""
 
-from openquant.application.services.health_service import HealthService
+from openquant.application.services.health_service import HealthService, health_service
 from openquant.application.services.auth_service import AuthService, auth_service
 from openquant.application.services.api_key_service import APIKeyService, api_key_service
 from openquant.application.services.secrets_service import SecretsService, secrets_service
+from openquant.application.services.audit_service import AuditLogService, audit_log_service
+from openquant.application.services.broker_service import BrokerService, broker_service
 
 __all__ = [
     "HealthService",
+    "health_service",
     "AuthService",
     "auth_service",
     "APIKeyService",
     "api_key_service",
     "SecretsService",
     "secrets_service",
+    "AuditLogService",
+    "audit_log_service",
+    "BrokerService",
+    "broker_service",
 ]

@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 03: Database Foundation & Audit Logging
+## [Unreleased] - Milestone 04: Broker Adapter Interface & First Adapter
+
+### Added
+- **Multi-Broker Hexagonal Port (`src/openquant/domain/ports/broker_adapter.py`)**:
+  - `IBrokerAdapter` defining standardized contract for connection, token handshake, order execution, position reconciliation, funds inspection, holdings retrieval, and real-time tick/execution streaming.
+- **High-Fidelity Paper Broker Adapter (`src/openquant/adapters/brokers/paper_adapter.py`)**:
+  - `PaperBrokerAdapter` supporting simulated order matching, configurable slippage, cash/margin tracking, and real-time PnL computation.
+- **Production Zerodha Kite Connect Adapter (`src/openquant/adapters/brokers/zerodha_adapter.py`)**:
+  - `ZerodhaKiteAdapter` for Zerodha Kite Connect v3 REST API supporting equity, futures, options, margin queries, positions, and holdings.
+- **Automated Certification & Security Audit Harness (`src/openquant/adapters/brokers/certification_harness.py`)**:
+  - Systematic 5-point verification suite (`CREDENTIAL_LEAKAGE_AUDIT`, `AUTH_HANDSHAKE_VALIDATION`, `SANDBOX_ORDER_LIFECYCLE`, `POSITIONS_AND_FUNDS_INTEGRITY`, `FAULT_TOLERANCE_AND_SHUTDOWN`) enforcing Non-Negotiable Rule 9 before Live Trading.
+- **Broker Management REST Endpoints**:
+  - `/api/v1/brokers`, `/api/v1/brokers/{adapter_id}/metadata`, `/api/v1/brokers/{adapter_id}/connect`, `/api/v1/brokers/{adapter_id}/funds`, `/api/v1/brokers/{adapter_id}/certify`.
+- **Frontend Broker Management UI**:
+  - `BrokerAdaptersPage.tsx` with registered adapter grid, live certification badges, real-time funds and margin metrics, and 1-click audit harness runner.
+
+---
+
+## [0.3.0] - Milestone 03: Database Foundation & Audit Logging
 
 ### Added
 - **Async SQLAlchemy 2.x Schema & Models (`src/openquant/adapters/database/models.py`)**:

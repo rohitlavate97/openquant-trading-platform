@@ -7,6 +7,7 @@ import pytest
 from openquant.domain.models.order import Order, OrderExecutionReport, OrderStatus
 from openquant.domain.models.position import Position
 from openquant.domain.models.market_data import Tick
+from openquant.domain.models.broker import BrokerAccountInfo, BrokerHolding
 from openquant.adapters.brokers.base import BaseBrokerAdapter
 from openquant.adapters.brokers.registry import BrokerAdapterRegistry
 from openquant.domain.exceptions import BrokerAdapterUncertifiedError
@@ -48,8 +49,22 @@ class MockBrokerAdapter(BaseBrokerAdapter):
     async def get_positions(self, account_id: str) -> list[Position]:
         return []
 
-    async def get_funds(self, account_id: str) -> dict[str, Decimal]:
-        return {"cash": Decimal("100000")}
+    async def get_funds(self, account_id: str) -> BrokerAccountInfo:
+        return BrokerAccountInfo(
+            account_id=account_id,
+            broker_id="mock_broker",
+            total_balance=Decimal("100000.00"),
+            available_cash=Decimal("100000.00"),
+        )
+
+    async def get_holdings(self, account_id: str) -> list[BrokerHolding]:
+        return []
+
+    async def get_order_history(self, account_id: str) -> list[OrderExecutionReport]:
+        return []
+
+    async def download_instruments(self, exchange: str | None = None) -> list:
+        return []
 
     async def subscribe_market_data(self, symbols: list[str]) -> None:
         pass
@@ -60,6 +75,7 @@ class MockBrokerAdapter(BaseBrokerAdapter):
     async def stream_ticks(self) -> AsyncIterator[Tick]:
         return
         yield  # make it a generator
+
 
 
 def test_broker_registry_and_certification_guard():

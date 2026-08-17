@@ -48,3 +48,7 @@ class HealthService:
             },
             "adapters": adapter_registry.list_adapters(),
         }
+
+
+health_service = HealthService()
+

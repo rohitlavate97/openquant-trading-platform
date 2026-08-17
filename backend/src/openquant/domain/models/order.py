@@ -111,12 +111,26 @@ class OrderExecutionReport(BaseModel):
     """Execution update emitted by broker adapter or simulated execution engine."""
     order_id: str
     broker_order_id: str
-    execution_id: str
+    execution_id: str = Field(default_factory=lambda: f"exec_{datetime.now(timezone.utc).timestamp()}")
     status: OrderStatus
-    last_filled_quantity: Decimal
-    last_filled_price: Decimal
-    cumulative_filled_quantity: Decimal
-    average_price: Decimal
+    last_filled_quantity: Decimal = Decimal("0")
+    last_filled_price: Decimal = Decimal("0")
+    cumulative_filled_quantity: Decimal = Decimal("0")
+    average_price: Decimal = Decimal("0")
+    remaining_quantity: Decimal = Decimal("0")
+    rejection_reason: str | None = None
     commission: Decimal = Decimal("0")
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     raw_broker_response: dict | None = None
+
+    @property
+    def filled_quantity(self) -> Decimal:
+        """Alias for cumulative_filled_quantity."""
+        return self.cumulative_filled_quantity
+
+    @property
+    def average_fill_price(self) -> Decimal:
+        """Alias for average_price."""
+        return self.average_price
+
+

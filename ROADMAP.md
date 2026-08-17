@@ -7,7 +7,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **01** | **Project Setup & Hexagonal Boundaries** | 🟢 **Completed** | Repository scaffolding, Docker, CI, clean architecture ports & adapters skeleton, structural boundary tests, Sandbox AST security validator, and initial React dashboard with Kill Switch. |
 | **02** | **Authentication, RBAC & Secrets Management** | 🟢 **Completed** | JWT authentication, bcrypt password hashing, multi-tenant RBAC permissions, encrypted secrets vault (AES/Fernet PBKDF2), programmatic API keys, and Frontend Vault UI. |
 | **03** | **Database Foundation & Audit Logging** | 🟢 **Completed** | Async SQLAlchemy 2.x ORM models, Alembic migrations, idempotency indexes, append-only audit log repository, and Frontend Audit Trail Viewer. |
-| **04** | **Broker Adapter Interface & First Adapter** | ⚪ Pending | Abstract adapter interface, sandbox testing harness, Zerodha/Paper adapter certification. |
+| **04** | **Broker Adapter Interface & First Adapter** | 🟢 **Completed** | Standardized `IBrokerAdapter` multi-broker port, high-fidelity `PaperBrokerAdapter`, `ZerodhaKiteAdapter`, automated 5-check `BrokerAdapterCertificationHarness`, and Broker Management UI. |
 | **05** | **Unified REST & WebSocket Layer** | ⚪ Pending | Standardized REST API & WebSocket streams over the adapter layer. |
 | **06** | **Market Data Ingestion & Staleness Engine** | ⚪ Pending | Real-time tick & candle processing, fail-safe disconnect pause, staleness detection. |
 | **07** | **Order Management System (OMS)** | ⚪ Pending | Idempotent order processing, order lifecycle state machine, duplicate prevention. |
