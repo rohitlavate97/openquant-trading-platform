@@ -116,6 +116,14 @@ from openquant.domain.models.notification import (
     NotificationStatus,
     PlatformEvent,
 )
+from openquant.domain.models.live_trading import (
+    LiveCapitalAllocation,
+    LivePreflightCheckItem,
+    LivePreflightReport,
+    LiveStrategySession,
+    LiveTradingState,
+    ScalingTier,
+)
 
 __all__ = [
     "Order",
@@ -207,4 +215,10 @@ __all__ = [
     "NotificationChannelConfig",
     "NotificationMessage",
     "PlatformEvent",
+    "LiveTradingState",
+    "ScalingTier",
+    "LiveCapitalAllocation",
+    "LivePreflightCheckItem",
+    "LivePreflightReport",
+    "LiveStrategySession",
 ]

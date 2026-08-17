@@ -5,7 +5,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 18: Additional Broker Adapters
+## [Unreleased] - Milestone 19: Live Trading Mode
+
+### Added
+- **Live Trading Domain Models & Ports (`src/openquant/domain/models/live_trading.py`, `src/openquant/domain/ports/live_trading_port.py`)**:
+  - `LiveTradingState`, `ScalingTier` (Starter 25%, Intermediate 50%, Full 100%), `LiveCapitalAllocation`, `LivePreflightReport`, `LiveStrategySession`.
+  - `ILiveSessionRepository`, `ILiveTradingService`.
+- **Automated 5-Point Preflight Verification Matrix (Non-Negotiable Guardrails)**:
+  - Stage 4 Promotion Gate verification (Rule 1).
+  - Automated 5-point sandbox audit certification for broker adapters (Rule 9).
+  - Pre-trade risk engine state & kill switch unlocked verification (Rules 2 & 4).
+  - 3000ms market data staleness threshold verification (Rule 7).
+  - Broker authenticated session handshake verification.
+- **Live Trading Application Service (`src/openquant/application/services/live_trading_service.py`)**:
+  - Orchestration of preflight checks, dual-operator session activation, gradual position scaling, and emergency halting.
+  - Event bus emission (`live_trading.activated`, `live_trading.scaled`, `live_trading.halted`) and audit logging.
+- **Live Trading REST API (`src/openquant/interfaces/api/v1/endpoints/live_trading.py`)**:
+  - `POST /api/v1/live-trading/preflight`, `POST /api/v1/live-trading/sessions`, `GET /api/v1/live-trading/sessions`, `GET /api/v1/live-trading/sessions/{id}`, `POST /api/v1/live-trading/sessions/{id}/scale`, `POST /api/v1/live-trading/sessions/{id}/halt`.
+- **Frontend Live Trading Mission Control (`frontend/src/features/live-trading/LiveTradingConsolePage.tsx`)**:
+  - Real-time preflight matrix visualizer with pass/fail status badges.
+  - Capital allocation & gradual position scaling calculator.
+  - Dual confirmation verification modal.
+  - Active session telemetry cards with live PnL, filled orders count, and 1-click **Emergency Halt**.
+
+---
+
+## [0.18.0] - Milestone 18: Additional Broker Adapters
 
 ### Added
 - **Interactive Brokers Adapter (`src/openquant/adapters/brokers/interactive_brokers_adapter.py`)**:

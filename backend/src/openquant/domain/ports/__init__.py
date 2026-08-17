@@ -28,6 +28,10 @@ from openquant.domain.ports.notification_port import (
     INotificationDispatcher,
     INotificationLogRepository,
 )
+from openquant.domain.ports.live_trading_port import (
+    ILiveSessionRepository,
+    ILiveTradingService,
+)
 
 __all__ = [
     "IUserRepository",
@@ -53,4 +57,6 @@ __all__ = [
     "IEventBus",
     "IMarketDataPort",
     "ICandleAggregatorPort",
+    "ILiveSessionRepository",
+    "ILiveTradingService",
 ]

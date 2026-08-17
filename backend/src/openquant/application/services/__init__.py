@@ -61,6 +61,7 @@ from openquant.application.services.notification_service import (
     NotificationService,
     notification_service,
 )
+from openquant.application.services.live_trading_service import LiveTradingService
 
 __all__ = [
     "HealthService",
@@ -104,4 +105,5 @@ __all__ = [
     "portfolio_service",
     "NotificationService",
     "notification_service",
+    "LiveTradingService",
 ]

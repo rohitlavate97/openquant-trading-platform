@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ActiveTab } from "@/components/layout/Sidebar";
 import { DashboardPage } from "@/features/dashboard/DashboardPage";
+import { LiveTradingConsolePage } from "@/features/live-trading/LiveTradingConsolePage";
 import { StrategyManagementPage } from "@/features/strategies/StrategyManagementPage";
 import { StrategySourcesPage } from "@/features/sources/StrategySourcesPage";
 import { AIAdvisorySuitePage } from "@/features/ai-advisory/AIAdvisorySuitePage";
@@ -71,6 +72,8 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case "live-trading":
+        return <LiveTradingConsolePage />;
       case "strategies":
         return <StrategyManagementPage />;
       case "sources":

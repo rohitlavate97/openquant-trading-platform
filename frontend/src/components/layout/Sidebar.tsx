@@ -19,10 +19,12 @@ import {
   FileText,
   Server,
   Settings,
+  Zap,
 } from "lucide-react";
 
 export type ActiveTab =
   | "overview"
+  | "live-trading"
   | "strategies"
   | "sources"
   | "ai-advisory"
@@ -50,6 +52,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "live-trading", name: "Live Trading Mode", icon: <Zap className="w-4 h-4 text-emerald-400" /> },
     { id: "portfolio", name: "Portfolio & Analytics", icon: <PieChart className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "sources", name: "Strategy Sources", icon: <Layers className="w-4 h-4" /> },
