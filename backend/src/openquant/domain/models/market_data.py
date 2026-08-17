@@ -26,6 +26,14 @@ class CandleTimeframe(StrEnum):
     D1 = "1d"
 
 
+class FeedHealthStatus(StrEnum):
+    """Real-time market data feed health state."""
+    HEALTHY = "HEALTHY"
+    DEGRADED = "DEGRADED"
+    STALE = "STALE"
+    DISCONNECTED = "DISCONNECTED"
+
+
 class Instrument(BaseModel):
     """Financial instrument metadata."""
     symbol: str
@@ -54,7 +62,6 @@ class Tick(BaseModel):
     ask_quantity: Decimal | None = None
     volume: Decimal = Decimal("0")
 
-
     def is_stale(self, max_staleness_ms: int) -> bool:
         """Check if market tick age exceeds maximum staleness limit."""
         now = datetime.now(timezone.utc)
@@ -72,3 +79,24 @@ class Candle(BaseModel):
     low: Decimal
     close: Decimal
     volume: Decimal
+
+
+class SymbolFeedMetrics(BaseModel):
+    """Staleness and throughput metrics for a single market instrument."""
+    symbol: str
+    feed_status: FeedHealthStatus
+    last_tick_timestamp: datetime
+    age_ms: float
+    is_stale: bool
+    total_ticks_received: int = 0
+    tick_frequency_per_sec: float = 0.0
+
+
+class MarketDataStalenessReport(BaseModel):
+    """System-wide market data staleness evaluation report."""
+    overall_status: FeedHealthStatus
+    max_staleness_ms: int = 3000
+    is_trading_paused: bool = False
+    stale_symbols_count: int = 0
+    symbols: dict[str, SymbolFeedMetrics] = Field(default_factory=dict)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

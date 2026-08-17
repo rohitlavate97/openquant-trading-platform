@@ -9,6 +9,7 @@ from openquant.interfaces.api.v1.endpoints.secrets import router as secrets_rout
 from openquant.interfaces.api.v1.endpoints.audit_logs import router as audit_logs_router
 from openquant.interfaces.api.v1.endpoints.brokers import router as brokers_router
 from openquant.interfaces.api.v1.endpoints.stream import router as stream_router
+from openquant.interfaces.api.v1.endpoints.market_data import router as market_data_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -19,3 +20,4 @@ api_v1_router.include_router(secrets_router)
 api_v1_router.include_router(audit_logs_router)
 api_v1_router.include_router(brokers_router)
 api_v1_router.include_router(stream_router)
+api_v1_router.include_router(market_data_router)

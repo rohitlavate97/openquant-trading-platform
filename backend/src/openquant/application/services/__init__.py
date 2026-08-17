@@ -10,6 +10,10 @@ from openquant.application.services.streaming_service import (
     StreamingBroadcasterService,
     streaming_broadcaster,
 )
+from openquant.application.services.market_data_service import (
+    MarketDataService,
+    market_data_service,
+)
 
 __all__ = [
     "HealthService",
@@ -26,4 +30,6 @@ __all__ = [
     "broker_service",
     "StreamingBroadcasterService",
     "streaming_broadcaster",
+    "MarketDataService",
+    "market_data_service",
 ]

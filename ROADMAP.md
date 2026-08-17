@@ -9,7 +9,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **03** | **Database Foundation & Audit Logging** | 🟢 **Completed** | Async SQLAlchemy 2.x ORM models, Alembic migrations, idempotency indexes, append-only audit log repository, and Frontend Audit Trail Viewer. |
 | **04** | **Broker Adapter Interface & First Adapter** | 🟢 **Completed** | Standardized `IBrokerAdapter` multi-broker port, high-fidelity `PaperBrokerAdapter`, `ZerodhaKiteAdapter`, automated 5-check `BrokerAdapterCertificationHarness`, and Broker Management UI. |
 | **05** | **Unified REST & WebSocket Layer** | 🟢 **Completed** | Multiplexed `WebSocketConnectionManager`, real-time streams (`/ws/v1/market-data`, `/ws/v1/orders`, `/ws/v1/telemetry`), `StreamingBroadcasterService`, and React `LiveMarketTicker`. |
-| **06** | **Market Data Ingestion & Staleness Engine** | ⚪ Pending | Real-time tick & candle processing, fail-safe disconnect pause, staleness detection. |
+| **06** | **Market Data Ingestion & Staleness Engine** | 🟢 **Completed** | `InMemoryMarketDataFeed`, `StreamingCandleAggregator` (OHLCV 1m-1d), `SyntheticMarketFeed`, pre-trade 3000ms staleness guard (Rule 7), and `MarketDataManagementPage`. |
 | **07** | **Order Management System (OMS)** | ⚪ Pending | Idempotent order processing, order lifecycle state machine, duplicate prevention. |
 | **08** | **Risk Engine & Global Kill Switch** | ⚪ Pending | Synchronous pre-trade hard stops (daily loss %, max drawdown, position sizing), synchronous Kill Switch. |
 | **09** | **Strategy Execution Sandbox** | ⚪ Pending | Resource quotas (CPU/RAM/time), restricted execution environment, AST static analysis. |

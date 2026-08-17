@@ -5,7 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 05: Unified REST & WebSocket Layer
+## [Unreleased] - Milestone 06: Market Data Ingestion & Staleness Engine
+
+### Added
+- **Market Data Domain Models & Ports (`src/openquant/domain/models/market_data.py`, `src/openquant/domain/ports/market_data_port.py`)**:
+  - `FeedHealthStatus`, `SymbolFeedMetrics`, `MarketDataStalenessReport`, `IMarketDataPort`, `ICandleAggregatorPort`.
+- **In-Memory Feed & Staleness Engine (`src/openquant/adapters/market_data/in_memory_feed.py`)**:
+  - Real-time tick caching, latency tracking, tick frequency profiling, and pre-trade 3000ms staleness threshold enforcement.
+- **Streaming Multi-Timeframe Candle Aggregator (`src/openquant/adapters/market_data/candle_aggregator.py`)**:
+  - Multi-timeframe OHLCV bar builder (`1m`, `5m`, `15m`, `1h`, `4h`, `1d`) with boundary finalization.
+- **Synthetic Market Data Generator (`src/openquant/adapters/market_data/synthetic_feed.py`)**:
+  - Multi-asset geometric Brownian random walk simulator with realistic bid/ask spread modeling and configurable frequency.
+- **Market Data REST Endpoints (`src/openquant/interfaces/api/v1/endpoints/market_data.py`)**:
+  - `/api/v1/market-data/ticks/latest`, `/api/v1/market-data/candles`, `/api/v1/market-data/staleness`, `/api/v1/market-data/ticks`, `/api/v1/market-data/replay/start` & `stop`.
+- **Frontend Market Data & Feed Health UI (`frontend/src/features/market-data/MarketDataManagementPage.tsx`)**:
+  - System-wide feed health dashboard, per-symbol latency monitor table, synthetic replay generator controls, and OHLCV candle bar visualizer.
+
+---
+
+## [0.5.0] - Milestone 05: Unified REST & WebSocket Layer
 
 ### Added
 - **Multiplexed WebSocket Connection Manager (`src/openquant/interfaces/api/v1/websocket/connection_manager.py`)**:
