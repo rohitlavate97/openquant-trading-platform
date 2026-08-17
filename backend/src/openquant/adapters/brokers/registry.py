@@ -4,6 +4,9 @@ from openquant.domain.ports.broker_adapter import IBrokerAdapter
 from openquant.domain.models.broker import BrokerAdapterMetadata
 from openquant.adapters.brokers.paper_adapter import PaperBrokerAdapter
 from openquant.adapters.brokers.zerodha_adapter import ZerodhaKiteAdapter
+from openquant.adapters.brokers.interactive_brokers_adapter import InteractiveBrokersAdapter
+from openquant.adapters.brokers.angelone_adapter import AngelOneSmartAPIAdapter
+from openquant.adapters.brokers.binance_adapter import BinanceCryptoAdapter
 
 
 class BrokerAdapterRegistry:
@@ -34,10 +37,12 @@ def create_default_registry() -> BrokerAdapterRegistry:
     registry = BrokerAdapterRegistry()
     registry.register(PaperBrokerAdapter())
     registry.register(ZerodhaKiteAdapter(is_sandbox=True))
+    registry.register(InteractiveBrokersAdapter(is_sandbox=True))
+    registry.register(AngelOneSmartAPIAdapter(is_sandbox=True))
+    registry.register(BinanceCryptoAdapter(is_sandbox=True))
     return registry
 
 
 # Global default broker registry instance
 broker_registry = create_default_registry()
 adapter_registry = broker_registry
-

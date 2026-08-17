@@ -5,7 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 17: Notification System & Event Bus
+## [Unreleased] - Milestone 18: Additional Broker Adapters
+
+### Added
+- **Interactive Brokers Adapter (`src/openquant/adapters/brokers/interactive_brokers_adapter.py`)**:
+  - TWS & IB Gateway client supporting multi-asset contracts (Equities, Futures, Options, Forex, Bonds, Commodities).
+  - TWS tiered commission modeling ($1 min), simulated execution fills, and margin account reporting.
+- **Angel One SmartAPI Adapter (`src/openquant/adapters/brokers/angelone_adapter.py`)**:
+  - TOTP authentication handshake and JWT session management.
+  - NSE/NFO order routing, DP holding queries, and flat fee structure.
+- **Binance Crypto Adapter (`src/openquant/adapters/brokers/binance_adapter.py`)**:
+  - HMAC-SHA256 authenticated REST and WebSocket connectivity for Spot and USDT-M Perpetual Futures.
+  - Multi-asset collateral management and maker/taker trading fee calculation.
+- **Broker Adapter Registry Integration (`src/openquant/adapters/brokers/registry.py`)**:
+  - Default registry seeded with all 5 certified broker adapters.
+- **Automated Certification & Security Review Harness (Rule 9)**:
+  - 100% pass rate across the 5-point harness (`CREDENTIAL_LEAKAGE_AUDIT`, `AUTH_HANDSHAKE_VALIDATION`, `SANDBOX_ORDER_LIFECYCLE`, `POSITIONS_AND_FUNDS_INTEGRITY`, `FAULT_TOLERANCE_AND_SHUTDOWN`).
+- **Frontend Broker Adapters UI (`frontend/src/features/brokers/BrokerAdaptersPage.tsx`)**:
+  - Dynamic multi-currency display (`$`, `₹`, `₮`), live server synchronization, and 1-click audit execution.
+
+---
+
+## [0.17.0] - Milestone 17: Notification System & Event Bus
 
 ### Added
 - **Notification Domain Models & Ports (`src/openquant/domain/models/notification.py`, `src/openquant/domain/ports/notification_port.py`)**:

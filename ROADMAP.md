@@ -21,7 +21,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **15** | **AI Advisory Suite** | 🟢 **Completed** | Assistant, AST-verified code generator (mandatory human review Rule 3), telemetry log analyzer, and explainable risk advisor. |
 | **16** | **Portfolio Management & Analytics** | 🟢 **Completed** | Multi-account position tracking, mark-to-market valuations, asset allocation breakdown, equity & drawdown curves, and OMS 1-click position flattening. |
 | **17** | **Notification System & Event Bus** | 🟢 **Completed** | Multi-channel alert dispatching (Telegram, Discord, Email, Webhooks, In-App), event bus pub-sub routing, and Notification Center UI. |
-| **18** | **Additional Broker Adapters** | ⚪ Pending | Interactive Brokers, Angel One, Binance/Crypto (certified independently). |
+| **18** | **Additional Broker Adapters** | 🟢 **Completed** | Interactive Brokers (TWS / IB Gateway), Angel One SmartAPI, Binance Crypto (Spot & USDT-M Futures) with 5-point certification harness. |
 | **19** | **Live Trading Mode** | ⚪ Pending | Capital allocation controls, gradual position scaling, rigorous pre-requisite verification. |
 | **20** | **Observability & Monitoring** | ⚪ Pending | Prometheus metrics, Grafana dashboards, Loki log aggregation, OpenTelemetry traces. |
 | **21** | **Security Hardening & Load Testing** | ⚪ Pending | Penetration testing, sandbox escape tests, stress testing order pipelines. |
