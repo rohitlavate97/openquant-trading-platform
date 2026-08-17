@@ -19,7 +19,7 @@ Progress and milestone tracker for the OpenQuant Algorithmic Trading Platform.
 | **13** | **State Reconciliation Engine** | 🟢 **Completed** | Scheduled and pre-order mismatch detection against broker actuals; auto-halt kill-switch interlock on discrepancy (Rule 5). |
 | **14** | **Additional Strategy Sources** | 🟢 **Completed** | Signed TradingView webhooks (HMAC-SHA256 & replay nonce protected), MT5 ZeroMQ bridge, structured Sheets CSV parser, and Strategy Sources UI. |
 | **15** | **AI Advisory Suite** | 🟢 **Completed** | Assistant, AST-verified code generator (mandatory human review Rule 3), telemetry log analyzer, and explainable risk advisor. |
-| **16** | **Portfolio Management & Analytics** | ⚪ Pending | Holdings, position tracking, PnL analytics, drawdown metrics. |
+| **16** | **Portfolio Management & Analytics** | 🟢 **Completed** | Multi-account position tracking, mark-to-market valuations, asset allocation breakdown, equity & drawdown curves, and OMS 1-click position flattening. |
 | **17** | **Notification System & Event Bus** | ⚪ Pending | Multi-channel alerting (Telegram, Discord, Email), event-driven scheduler. |
 | **18** | **Additional Broker Adapters** | ⚪ Pending | Interactive Brokers, Angel One, Binance/Crypto (certified independently). |
 | **19** | **Live Trading Mode** | ⚪ Pending | Capital allocation controls, gradual position scaling, rigorous pre-requisite verification. |

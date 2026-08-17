@@ -5,6 +5,7 @@ import { DashboardPage } from "@/features/dashboard/DashboardPage";
 import { StrategyManagementPage } from "@/features/strategies/StrategyManagementPage";
 import { StrategySourcesPage } from "@/features/sources/StrategySourcesPage";
 import { AIAdvisorySuitePage } from "@/features/ai-advisory/AIAdvisorySuitePage";
+import { PortfolioManagementPage } from "@/features/portfolio/PortfolioManagementPage";
 import { BacktestDashboardPage } from "@/features/backtesting/BacktestDashboardPage";
 import { PaperTradingPage } from "@/features/paper-trading/PaperTradingPage";
 import { StateReconciliationPage } from "@/features/reconciliation/StateReconciliationPage";
@@ -75,6 +76,8 @@ export const App: React.FC = () => {
         return <StrategySourcesPage />;
       case "ai-advisory":
         return <AIAdvisorySuitePage />;
+      case "portfolio":
+        return <PortfolioManagementPage />;
       case "backtesting":
         return <BacktestDashboardPage />;
       case "paper-trading":

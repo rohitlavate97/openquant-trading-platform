@@ -7,6 +7,7 @@ import {
   Scale,
   Layers,
   Sparkles,
+  PieChart,
   Code,
   ShoppingBag,
   Activity,
@@ -24,6 +25,7 @@ export type ActiveTab =
   | "strategies"
   | "sources"
   | "ai-advisory"
+  | "portfolio"
   | "backtesting"
   | "paper-trading"
   | "reconciliation"
@@ -46,6 +48,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab }) => {
   const navItems: Array<{ id: ActiveTab; name: string; icon: React.ReactNode }> = [
     { id: "overview", name: "Overview", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: "portfolio", name: "Portfolio & Analytics", icon: <PieChart className="w-4 h-4" /> },
     { id: "strategies", name: "Strategy Engine", icon: <Cpu className="w-4 h-4" /> },
     { id: "sources", name: "Strategy Sources", icon: <Layers className="w-4 h-4" /> },
     { id: "ai-advisory", name: "AI Advisory Suite", icon: <Sparkles className="w-4 h-4" /> },

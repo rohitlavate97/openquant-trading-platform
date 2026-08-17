@@ -5,7 +5,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased] - Milestone 15: AI Advisory Suite
+## [Unreleased] - Milestone 16: Portfolio Management & Analytics
+
+### Added
+- **Portfolio Domain Models & Ports (`src/openquant/domain/models/portfolio.py`, `src/openquant/domain/ports/portfolio_port.py`)**:
+  - `PortfolioPosition`, `AssetAllocationItem`, `PortfolioPerformanceSnapshot`, `PortfolioSummary`.
+  - `IPortfolioAnalyticsEngine` defining contracts for mark-to-market valuation, asset allocation, and equity curve analytics.
+- **Portfolio Analytics Engine Adapter (`src/openquant/adapters/portfolio/portfolio_analytics_engine.py`)**:
+  - Mark-to-market position tracking against live market feeds.
+  - Multi-asset exposure percentage calculations and concentration risk analysis.
+  - Historical equity curve snapshots with peak watermark and drawdown tracking (Rule 2).
+- **Portfolio Application Service (`src/openquant/application/services/portfolio_service.py`)**:
+  - Coordinates multi-account analytics retrieval and OMS 1-click position flattening with audit logs.
+- **Portfolio REST API (`src/openquant/interfaces/api/v1/endpoints/portfolio.py`)**:
+  - `GET /api/v1/portfolio/summary`, `GET /api/v1/portfolio/positions`, `GET /api/v1/portfolio/allocation`, `GET /api/v1/portfolio/performance`, `POST /api/v1/portfolio/positions/{symbol}/close`.
+- **Frontend Portfolio Management UI (`frontend/src/features/portfolio/PortfolioManagementPage.tsx`)**:
+  - Real-time NAV, cash balance, unrealized PnL, margin utilization, and Sharpe ratio stat cards.
+  - Active positions table with 1-click market order close action.
+  - Asset allocation & concentration risk progress meters (30% limit threshold).
+  - 14-day historical equity trajectory and drawdown depth visualizer.
+
+---
+
+## [0.15.0] - Milestone 15: AI Advisory Suite
 
 ### Added
 - **AI Advisory Domain Models & Ports (`src/openquant/domain/models/ai_advisory.py`, `src/openquant/domain/ports/ai_advisory_port.py`)**:

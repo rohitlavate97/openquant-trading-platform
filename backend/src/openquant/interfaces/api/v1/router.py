@@ -19,6 +19,7 @@ from openquant.interfaces.api.v1.endpoints.paper_trading import router as paper_
 from openquant.interfaces.api.v1.endpoints.reconciliation import router as reconciliation_router
 from openquant.interfaces.api.v1.endpoints.strategy_sources import router as strategy_sources_router
 from openquant.interfaces.api.v1.endpoints.ai_advisory import router as ai_advisory_router
+from openquant.interfaces.api.v1.endpoints.portfolio import router as portfolio_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -39,4 +40,6 @@ api_v1_router.include_router(paper_trading_router)
 api_v1_router.include_router(reconciliation_router)
 api_v1_router.include_router(strategy_sources_router)
 api_v1_router.include_router(ai_advisory_router)
+api_v1_router.include_router(portfolio_router)
+
 

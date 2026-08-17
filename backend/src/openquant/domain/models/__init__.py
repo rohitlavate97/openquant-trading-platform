@@ -102,6 +102,12 @@ from openquant.domain.models.ai_advisory import (
     AIRiskAdviceRequest,
     AIRiskRecommendation,
 )
+from openquant.domain.models.portfolio import (
+    AssetAllocationItem,
+    PortfolioPerformanceSnapshot,
+    PortfolioPosition,
+    PortfolioSummary,
+)
 
 __all__ = [
     "Order",
@@ -183,4 +189,8 @@ __all__ = [
     "AIRiskAdviceRequest",
     "AIRiskRecommendation",
     "AIRiskAdviceReport",
+    "PortfolioPosition",
+    "AssetAllocationItem",
+    "PortfolioPerformanceSnapshot",
+    "PortfolioSummary",
 ]
